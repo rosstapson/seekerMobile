@@ -59,7 +59,7 @@ class Login extends Component {
     
     return (
       <View style={styles.container}>
-       
+        <Image source={require('./logo.png')}/>
         <Text style={styles.heading}>
           Login
         </Text>
