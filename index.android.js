@@ -4,27 +4,46 @@
  * @flow
  */
 
-import React, { Component } from 'react';
-import {
-  AppRegistry,
-  StyleSheet,
-  Text,
-  View
-} from 'react-native';
+import React, {Component} from 'react';
+import {AppRegistry, StyleSheet, Text, View, Navigator} from 'react-native';
 
 import Register from './register';
+import Login from './login';
+import Root from './root';
+import Home from './home';
+// import Scratch from './scratch';
 import styles from './styles';
 
 export default class seekerMobile extends Component {
+  renderScene(route, navigator) {
+    if (route.name == 'root') {
+      return <Root navigator={navigator}/>
+    }
+    if (route.name == 'register') {
+      return <Register navigator={navigator}/>
+    }
+    if (route.name == 'login') {
+      return <Login navigator={navigator}/>
+    }
+    if (route.name == 'home') {
+      return <Home navigator={navigator}/>
+    }
+  }
   render() {
     return (
       <View style={styles.container}>
-        <Register />
+        <Navigator
+          initialRoute={{
+          name: "root"
+        }}
+          renderScene={this
+          .renderScene
+          .bind(this)}
+          //navigationBar={< Navigator.NavigationBar routeMapper = {{ LeftButton: (route, navigator, index, navState) => { return (<Text>Cancel</Text>); }, RightButton: (route, navigator, index, navState) => { return (<Text>Done</Text>); }, Title: (route, navigator, index, navState) => { return (<Text>Awesome Nav Bar</Text>); }, }}style = {{backgroundColor: 'blue'}}/>}
+          />
       </View>
     );
   }
 }
-
-
 
 AppRegistry.registerComponent('seekerMobile', () => seekerMobile);

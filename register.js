@@ -22,48 +22,54 @@ class Register extends Component {
       errors: []
     };
   }
-  async onRegisteredPress() {
-    let user = {
-      username: this.state.username,
-      email: this.state.email,
-      password: this.state.password,
-      password_confirmation: this.state.password_confirmation
-    };
-
-    let config = {
-      method: 'post',
-      headers: {
-        'content-type': 'application/json'
-      },
-      body: JSON.stringify(user)
-    }
-    return fetch("https://seekerdnasecure.co.za:3002/users", config).then((response) => {
-      if (!response.ok) {
-        response
-          .json()
-          .then((json) => {
-            throw new Error(json.errorMessage);
-          })
+  redirect (routeName) {
+    this.props.navigator.push({routeName});
+  }
+  async onRegisterPressed() {
+    this.setState({showProgress: true})
+    try {
+      let response = await fetch('https://seekerdnasecure.co.za:3002/users', {
+                              method: 'POST',
+                              headers: {
+                                'Accept': 'application/json',
+                                'Content-Type': 'application/json',
+                              },
+                              body: JSON.stringify({
+                                user:{
+                                  name: this.state.name,
+                                  email: this.state.email,
+                                  password: this.state.password,
+                                  password_confirmation: this.state.password_confirmation,
+                                }
+                              })
+                            });
+      let res = await response.text();
+      if (response.status >= 200 && response.status < 300) {
+          //Handle success
+          let accessToken = res;
+          console.log(accessToken);
+          //On success we will store the access_token in the AsyncStorage
+          this.storeToken(accessToken);
+          this.redirect('home');
+      } else {
+          //Handle error
+          let error = res;
+          throw error;
       }
-      response
-        .json()
-        .then((json) => {
-          Alert.alert('Holy Moly', json.id_token, [
-            {
-              text: 'OK',
-              //onPress: () => console.log('OK Pressed')
-            }
-          ], {cancelable: true})
-        });
-
-    }).catch((errors) => {
-      Alert.alert('Error', errors.message, [
-        {
-          text: 'OK',
-          //onPress: () => console.log('OK Pressed')
-        }
-      ], {cancelable: true})
-    });
+    } catch(errors) {
+      //errors are in JSON form so we must parse them first.
+      console.log(errors);
+      let formErrors = JSON.parse(errors);
+      console.log(formErrors);   
+      let errorsArray = [];
+      
+       for(var key in formErrors) {                 
+             errorsArray.push(`${key} ${formErrors[key]}`);         
+       }
+      console.log(errorsArray);
+      this.setState({errors: errorsArray})
+      this.setState({showProgress: false});
+    }
   }
 
   render() {
@@ -91,14 +97,20 @@ class Register extends Component {
           secureTextEntry={true}/>
         <TouchableHighlight
           style={styles.button}
-          onPress={this
-          .onRegisteredPress
-          .bind(this)}>
+          onPress={this.onRegisterPressed.bind(this)} >
           <Text style={styles.buttonText}>Submit</Text>
         </TouchableHighlight>
+        <Errors errors={this.state.errors} />
       </View>
     );
   }
+}
+const Errors = (props) => {
+  return(
+    <View>
+      {props.errors.map((error, i) => <Text key={i} style={styles.error} >{error}</Text>)}
+    </View>
+  );
 }
 
 export default Register;

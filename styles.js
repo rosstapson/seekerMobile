@@ -4,7 +4,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: 'flex-start',
-    alignItems: 'center',
+    
     backgroundColor: '#F5FCFF',
     padding: 10,
     paddingTop: 80
@@ -31,6 +31,7 @@ const styles = StyleSheet.create({
     alignSelf: 'center'
   },
   heading: {
+    alignSelf: 'center',
     fontSize: 30
   },
   error: {
@@ -40,6 +41,12 @@ const styles = StyleSheet.create({
   ,
   loader: {
     marginTop: 20
+  },
+  logo: {
+    flex: 1,
+    width: null,
+    height: null,
+    resizeMode: 'contain'
   }
 });
 
