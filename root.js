@@ -1,4 +1,4 @@
-'use strict';
+/*jshint esversion: 6 */
 import React, { Component } from 'react';
 import {  
   StyleSheet,
@@ -23,8 +23,7 @@ class Root extends Component {
   }
 
   async getToken() {
-    try {
-      console.log(constants.ACCESS_TOKEN);
+    try {      
       let accessToken = await AsyncStorage.getItem(constants.ACCESS_TOKEN);
       if(!accessToken) {
           console.log("Token not set");
@@ -40,13 +39,22 @@ class Root extends Component {
     let accessToken = token
 
     try {
-      let response = await fetch('https://afternoon-beyond-22141.herokuapp.com/api/verify?session%5Baccess_token%5D='+accessToken);
-      let res = await response.text();
+      let response = await fetch('https://seekerdnasecure.co.za:3002/token', {
+        method: 'post',
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({id_token: token})
+      });
+      let res = await response.json();
       if (response.status >= 200 && response.status < 300) {
-        //Verified token means user is logged in so we redirect him to home.
+        
+        console.log("succhess");
         this.navigate('home');
       } else {
           //Handle error
+          console.log("failure in a hebrew accent");
           let error = res;
           throw error;
       }

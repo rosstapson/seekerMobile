@@ -19,14 +19,28 @@ class Register extends Component {
       username: '',
       password: '',
       password_confirmation: '',
+
+      // new fields
+      companyName: '',
+      telephone: '',
+      contactPerson: '',
+      address: {
+        line1: '',
+        line2: '',
+        line3: '',
+        state: '',
+        country: ''
+    },
+
       errors: []
     };
   }
+  
   redirect (routeName) {
     this.props.navigator.push({routeName});
   }
   async onRegisterPressed() {
-    this.setState({showProgress: true})
+    console.log("username: " + this.state.username);
     try {
       let response = await fetch('https://seekerdnasecure.co.za:3002/users', {
                               method: 'POST',
@@ -34,23 +48,18 @@ class Register extends Component {
                                 'Accept': 'application/json',
                                 'Content-Type': 'application/json',
                               },
-                              body: JSON.stringify({
-                                user:{
-                                  name: this.state.name,
+                              body: JSON.stringify({                                
+                                  username: this.state.username,
                                   email: this.state.email,
-                                  password: this.state.password,
-                                  password_confirmation: this.state.password_confirmation,
-                                }
+                                  password: this.state.password
+                                
                               })
                             });
       let res = await response.text();
       if (response.status >= 200 && response.status < 300) {
           //Handle success
-          let accessToken = res;
-          console.log(accessToken);
-          //On success we will store the access_token in the AsyncStorage
-          this.storeToken(accessToken);
-          this.redirect('home');
+          
+          this.redirect('registrationComplete');
       } else {
           //Handle error
           let error = res;
@@ -95,11 +104,14 @@ class Register extends Component {
           placeholder="Confirm Password"
           onChangeText={(val) => this.setState({password_confirmation: val})}
           secureTextEntry={true}/>
+
+        // new fields
         <TouchableHighlight
           style={styles.button}
           onPress={this.onRegisterPressed.bind(this)} >
           <Text style={styles.buttonText}>Submit</Text>
         </TouchableHighlight>
+        
         <Errors errors={this.state.errors} />
       </View>
     );

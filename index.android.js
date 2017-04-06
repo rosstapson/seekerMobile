@@ -3,7 +3,7 @@
  * https://github.com/facebook/react-native
  * @flow
  */
-
+/*jshint esversion: 6 */
 import React, {Component} from 'react';
 import {AppRegistry, StyleSheet, Text, View, Navigator} from 'react-native';
 
@@ -11,6 +11,8 @@ import Register from './register';
 import Login from './login';
 import Root from './root';
 import Home from './home';
+import RegistrationComplete from './registrationComplete';
+import Assets from './assets';
 // import Scratch from './scratch';
 import styles from './styles';
 
@@ -28,6 +30,12 @@ export default class seekerMobile extends Component {
     if (route.name == 'home') {
       return <Home navigator={navigator}/>
     }
+    if (route.name == 'registrationComplete') {
+      return <RegistrationComplete navigator={navigator}/>
+    }
+    if (route.name == 'assets') {
+      return <Assets navigator={navigator} />
+    }
   }
   render() {
     return (
@@ -35,6 +43,7 @@ export default class seekerMobile extends Component {
         <Navigator
           initialRoute={{
           name: "root"
+          //name: "registrationComplete"
         }}
           renderScene={this
           .renderScene
