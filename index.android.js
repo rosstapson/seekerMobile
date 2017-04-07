@@ -1,9 +1,4 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- * @flow
- */
-/*jshint esversion: 6 */
+
 import React, {Component} from 'react';
 import {AppRegistry, StyleSheet, Text, View, Navigator} from 'react-native';
 
@@ -34,7 +29,7 @@ export default class seekerMobile extends Component {
       return <RegistrationComplete navigator={navigator}/>
     }
     if (route.name == 'assets') {
-      return <Assets navigator={navigator} />
+      return <Assets navigator={navigator}  {... route.props} />
     }
   }
   render() {

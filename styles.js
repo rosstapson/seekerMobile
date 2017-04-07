@@ -4,11 +4,23 @@ import {StyleSheet} from 'react-native';
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'flex-start',
+    justifyContent: 'space-between',
     
     backgroundColor: '#F5FCFF',
     padding: 10,
-    paddingTop: 80
+    paddingTop: 10
+  },
+  assetSmall: {
+    height: 50,
+    alignSelf: 'stretch',
+    flexDirection: 'row',
+    justifyContent: 'space-between'
+  },
+  assetSmallTextBox: {
+    
+  },
+  assetSmallThumbnail: {
+    alignItems: 'flex-end'
   },
   input: {
     height: 50,
@@ -23,23 +35,41 @@ const styles = StyleSheet.create({
     height: 50,
     backgroundColor: '#48BBEC',
     alignSelf: 'stretch',
-    marginTop: 10,
+    marginTop: 20,
     justifyContent: 'center'
   },
   buttonText: {
-    fontSize: 22,
+    fontSize: 25,
     color: '#FFF',
     alignSelf: 'center'
   },
   heading: {
+    alignSelf: 'center',    
+    fontSize: 35    
+  },
+  headingContainer : {
+    backgroundColor: '#48BBEC',
+    flex: 1,
+    justifyContent: 'flex-start',
+    alignSelf: 'stretch'
+  },
+  label: {
+    paddingTop: 20,
     alignSelf: 'center',
-    fontSize: 30
+    fontSize: 25
+  },
+  required: {
+    color: 'red',
+    fontSize: 20,
+    
+  },
+  textBold: {
+    fontWeight: 'bold'
   },
   error: {
     color: 'red',
     paddingTop: 10
-  }
-  ,
+  },
   loader: {
     marginTop: 20
   },

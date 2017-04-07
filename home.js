@@ -33,10 +33,10 @@ class Home extends Component {
   async viewAssets() {
      let token = this.state.accessToken;
      let username = await AsyncStorage.getItem(constants.USERNAME);
-     let assets = Api.getAssetsForUser(username, token);
+     let assets = await Api.getAssetsForUser(username, token);     
      this.props.navigator.push({
       name: "assets",
-      passProps: {
+      props: {
         accessToken: this.state.accessToken,
         assets: assets
       }
@@ -71,7 +71,7 @@ class Home extends Component {
   redirect(routeName){
     this.props.navigator.push({
       name: routeName,
-      passProps: {
+      props: {
         accessToken: this.state.accessToken
       }
     });

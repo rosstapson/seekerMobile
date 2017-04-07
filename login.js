@@ -112,8 +112,6 @@ class Login extends Component {
         await this.storeUsername(res.username);
         await this.storeAccessLevel(res.accessLevel);
         this.redirect('home');
-        
-        
       } else {
         console.log("feck. " + res);
         let error = res;
@@ -121,7 +119,7 @@ class Login extends Component {
       }
     } catch (error) {
       this.setState({error: error});
-      console.log("error: " + error);
+      console.log("error: " + JSON.stringify(error));
     }
   }
   render() {

@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import {
   AppRegistry,
+  ScrollView,
   StyleSheet,
   TextInput,
   TouchableHighlight,
@@ -19,8 +20,6 @@ class Register extends Component {
       username: '',
       password: '',
       password_confirmation: '',
-
-      // new fields
       companyName: '',
       telephone: '',
       contactPerson: '',
@@ -37,10 +36,9 @@ class Register extends Component {
   }
   
   redirect (routeName) {
-    this.props.navigator.push({routeName});
+    this.props.navigator.push({name: routeName, token: ''});
   }
   async onRegisterPressed() {
-    console.log("username: " + this.state.username);
     try {
       let response = await fetch('https://seekerdnasecure.co.za:3002/users', {
                               method: 'POST',
@@ -51,14 +49,16 @@ class Register extends Component {
                               body: JSON.stringify({                                
                                   username: this.state.username,
                                   email: this.state.email,
-                                  password: this.state.password
-                                
+                                  password: this.state.password,
+                                  companyName: this.state.companyName,
+                                  telephone: this.state.telephone,
+                                  contactPerson: this.state.contactPerson,
+                                  address: this.state.address                                
                               })
                             });
       let res = await response.text();
       if (response.status >= 200 && response.status < 300) {
-          //Handle success
-          
+          //Handle success          
           this.redirect('registrationComplete');
       } else {
           //Handle error
@@ -85,15 +85,19 @@ class Register extends Component {
 
     return (
       <View>
-        <Text style={styles.heading}>Register</Text>
+      <ScrollView>
+        <Text style={styles.heading}>Register  </Text>
+        <Text style={styles.label}>Username <Text style={styles.required}> *</Text></Text>
         <TextInput
           style={styles.input}
           placeholder="Username"
           onChangeText={(val) => this.setState({username: val})}/>
+        <Text style={styles.label}>Email <Text style={styles.required}> *</Text></Text>
         <TextInput
           style={styles.input}
           placeholder="Email"
           onChangeText={(val) => this.setState({email: val})}/>
+        <Text style={styles.label}>Password <Text style={styles.required}> *</Text></Text>
         <TextInput
           style={styles.input}
           placeholder="Password"
@@ -104,8 +108,51 @@ class Register extends Component {
           placeholder="Confirm Password"
           onChangeText={(val) => this.setState({password_confirmation: val})}
           secureTextEntry={true}/>
+          <Text style={styles.label}>Company Name</Text>
+        <TextInput
+          style={styles.input}
+          placeholder="Company Name"
+          onChangeText={(val) => this.setState({companyName: val})}
+          />
+          <Text style={styles.label}>Telephone</Text>
+        <TextInput
+          style={styles.input}
+          placeholder="Telephone"
+          onChangeText={(val) => this.setState({telephone: val})}
+          />
+          <Text style={styles.label}>Contact Person</Text>
+        <TextInput
+          style={styles.input}
+          placeholder="Contact Person"
+          onChangeText={(val) => this.setState({contactPerson: val})}
+          />
+          <Text style={styles.label}>Address</Text>
+        <TextInput
+          style={styles.input}
+          placeholder="Address"
+          onChangeText={(val) => this.setState({address: {...this.state.address, line1: val}})}
+          />
+        <TextInput
+          style={styles.input}
+          placeholder="Address"
+          onChangeText={(val) => this.setState({address: {...this.state.address, line2: val}})}
+          />
+        <TextInput
+          style={styles.input}
+          placeholder="Address"
+          onChangeText={(val) => this.setState({address: {...this.state.address, line3: val}})}
+          />
+        <TextInput
+          style={styles.input}
+          placeholder="State"
+          onChangeText={(val) => this.setState({address: {...this.state.address, state: val}})}
+          />
+        <TextInput
+          style={styles.input}
+          placeholder="Country"
+          onChangeText={(val) => this.setState({address: {...this.state.address, country: val}})}
+          />
 
-        // new fields
         <TouchableHighlight
           style={styles.button}
           onPress={this.onRegisterPressed.bind(this)} >
@@ -113,6 +160,7 @@ class Register extends Component {
         </TouchableHighlight>
         
         <Errors errors={this.state.errors} />
+        </ScrollView>
       </View>
     );
   }

@@ -6,8 +6,7 @@ import constants from './constants';
 
 const Api = {
   async getAssetsForUser(username, token) {
-    console.log("getAssetsForUser:" + username);
-    console.log("token: " + token);
+ 
     try {
       //Alert.alert("getAssets", "some text");
       let response = await fetch('https://seekerdnasecure.co.za:3002/assets', {
@@ -22,8 +21,8 @@ const Api = {
       let res = await response.json();
       //await AsyncStorage.setItem(JSON.stringify("assets", res.assets));
      
-      if (response.status >= 200 && response.status < 300) {
-        //handle success
+      if (response.status >= 200 && response.status < 300) {       
+        //handle success        
         return res.assets;        
       } else {        
         let error = res;

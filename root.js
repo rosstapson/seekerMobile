@@ -5,7 +5,8 @@ import {
   TouchableHighlight,
   AsyncStorage,
   Text,
-  View
+  View,
+  Image
 } from 'react-native';
 
 import styles from './styles';
@@ -47,15 +48,15 @@ class Root extends Component {
         },
         body: JSON.stringify({id_token: token})
       });
-      let res = await response.json();
+      
       if (response.status >= 200 && response.status < 300) {
         
-        console.log("succhess");
+        //console.log("succhess");
         this.navigate('home');
       } else {
           //Handle error
           console.log("failure in a hebrew accent");
-          let error = res;
+          let error = await response.json();
           throw error;
       }
     } catch(error) {
@@ -65,7 +66,10 @@ class Root extends Component {
   render() {
     return (
       <View style={styles.container}>
-        <Text style={styles.title}>Welcome Friend </Text>
+        <Image 
+        source={require('./img/logo.png')}
+        style={styles.logo}
+        />
         <TouchableHighlight onPress={ this.navigate.bind(this,'register') } style={styles.button}>
           <Text style={styles.buttonText}>Register</Text>
         </TouchableHighlight>
