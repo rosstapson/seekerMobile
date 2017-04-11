@@ -22,8 +22,7 @@ class Login extends Component {
       error: ""
     };
   }
-  redirect (routeName) {
-    console.log("login.js redirecting to: " + routeName);
+  redirect (routeName) {    
     this.props.navigator.push({
       name: routeName
     });
@@ -39,8 +38,7 @@ class Login extends Component {
   
    async getToken() {
     try {
-      let accessToken = await AsyncStorage.getItem(constants.ACCESS_TOKEN);
-      console.log("token is: " + accessToken);
+      let accessToken = await AsyncStorage.getItem(constants.ACCESS_TOKEN);     
     } catch (error) {
       console.log("feck2: " + error);
     }
@@ -56,8 +54,7 @@ class Login extends Component {
   
    async getUsername() {
     try {
-      let username = await AsyncStorage.getItem(constants.USERNAME);
-      console.log("username is: " + username);
+      let username = await AsyncStorage.getItem(constants.USERNAME);     
       return username;
     } catch (error) {
       console.log("feck4: " + error);
@@ -65,8 +62,7 @@ class Login extends Component {
   }
   async storeAccessLevel(accessLevel) {
     try {
-      await AsyncStorage.setItem(constants.ACCESS_LEVEL, String(accessLevel));
-      console.log("here");
+      await AsyncStorage.setItem(constants.ACCESS_LEVEL, String(accessLevel));      
       this.getAccessLevel();
     } catch (error) {
       console.log("feck5: " + error);
@@ -74,17 +70,14 @@ class Login extends Component {
   }
   async getAccessLevel() {
     try {
-      let accessLevel = await AsyncStorage.getItem(constants.ACCESS_LEVEL);
-      console.log("access level is: " + accessLevel);
-      console.log("and now here.")
+      let accessLevel = await AsyncStorage.getItem(constants.ACCESS_LEVEL);      
       return accessLevel;
     } catch (error) {
       console.log("feck6: " +  error);
     }
   }
   
-  async onLoginPressed() {
-    console.log("oooaaaa");
+  async onLoginPressed() {   
     try {
       if (this.state.password == null || this.state.password == '') {
         this.setState({error: "Invalid password"});
