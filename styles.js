@@ -11,10 +11,11 @@ const styles = StyleSheet.create({
     paddingTop: 10
   },
   assetSmall: {
-    height: 50,
+    minHeight: 70,
     alignSelf: 'stretch',
     flexDirection: 'row',
-    justifyContent: 'space-between'
+    justifyContent: 'space-between',
+    padding: 8
   },
   assetSmallTextBox: {
     
@@ -57,6 +58,20 @@ const styles = StyleSheet.create({
     paddingTop: 20,
     alignSelf: 'center',
     fontSize: 25
+  },
+  navbar: {
+    flex: 1,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    padding: 8
+  },
+  navButton: {
+    flexDirection: 'row',
+    backgroundColor: 'red',
+    padding: 8,
+    borderRadius: 6,
+    justifyContent: 'space-around',
+    width: 60
   },
   required: {
     color: 'red',

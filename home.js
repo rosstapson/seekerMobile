@@ -19,6 +19,7 @@ class Home extends Component {
       isLoggedIn: "",
       showProgress: false,
       accessToken: "",
+      navigator: this.props.navigator
     }
   }
   componentWillMount() {
@@ -38,7 +39,8 @@ class Home extends Component {
       name: "assets",
       props: {
         accessToken: this.state.accessToken,
-        assets: assets
+        assets: assets,
+        navigator: this.props.navigator
       }
     });
     

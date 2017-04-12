@@ -16,14 +16,26 @@ class Assets extends Component {
     
     this.state={
       assets: this.props.assets,
-      accessToken: this.props.accessToken
+      accessToken: this.props.accessToken,
+      navigator: this.props.navigator
     }
   }
-  
+  onLeftButtonPressed() {
+    this.props.navigator.pop();
+  }
+  onRightButtonPressed() {
+    alert("Home Button Pressed")
+  }
   render() {
     return (
       <ScrollView>
-        <NavBar title={"Assets"} backRoute={"home"} />        
+        <NavBar 
+          title={"Assets"} 
+          leftButtonTitle={"Back"} 
+          onLeftButtonPressed={this.onLeftButtonPressed.bind(this)}
+          rightButtonTitle={"Home"}
+          onRightButtonPressed={this.onRightButtonPressed.bind(this)}
+         />        
         
        {/* <FlatList data={this.state.assets} renderItem={this.renderItem}/> */}
        {this.state.assets.map((asset) => {

@@ -5,6 +5,7 @@ import {
   TouchableHighlight,
   Image
 } from 'react-native';
+
 import styles from './styles';
 import constants from './constants';
 
