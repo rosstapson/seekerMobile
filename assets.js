@@ -26,6 +26,12 @@ class Assets extends Component {
   onRightButtonPressed() {
     alert("Home Button Pressed")
   }
+  onDetailPress(assetId) {
+    alert("detail: " + assetId);
+  }
+  onThumbnailPress(assetId) {
+    alert("thumbnail: " + assetId);
+  }
   render() {
     return (
       <ScrollView>
@@ -39,7 +45,12 @@ class Assets extends Component {
         
        {/* <FlatList data={this.state.assets} renderItem={this.renderItem}/> */}
        {this.state.assets.map((asset) => {
-         return <AssetListItem asset={asset} key={asset._id} />;
+         return <AssetListItem 
+          asset={asset} 
+          key={asset._id} 
+          onDetailPress={this.onDetailPress.bind(this)}
+          onThumbnailPress={this.onThumbnailPress.bind(this)}
+          />;
        })}
       </ScrollView>
     )

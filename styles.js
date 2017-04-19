@@ -54,6 +54,9 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-start',
     alignSelf: 'stretch'
   },
+  iconButton : {
+    backgroundColor: '#48BBEC'
+  },
   label: {
     paddingTop: 20,
     alignSelf: 'center',
