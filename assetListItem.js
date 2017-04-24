@@ -18,10 +18,12 @@ class AssetListItem extends Component {
     }
     //console.log(constants.IMG_API + this.state.asset.imageUrls[0]);
   }
+  handleUploadImage(path) {
+    console.log("uploading image: " + path);
+  };
 
   async onCameraPress() {
-    console.log("genuflect.");
-    
+   
     try {
       // scrap this bit and use requestMultiple, and then parse the result by using JSON.stringify
       const currentPerms = await PermissionsAndroid.check(PermissionsAndroid.PERMISSIONS.WRITE_EXTERNAL_STORAGE);
@@ -32,16 +34,15 @@ class AssetListItem extends Component {
         });
       }
       else {
-        console.log(currentPerms)
+        console.log("current permissions: " + currentPerms)
       }
       const granted = await PermissionsAndroid.request(PermissionsAndroid.PERMISSIONS.CAMERA, {
         'title': 'SeekerDNA Permission',
         'message': 'SeekerDNA needs your permission to access your camera.'
-      });
-     console.log(granted);
+      });    
       
       if (granted === PermissionsAndroid.RESULTS.GRANTED) {
-        console.log("You can use the camera");
+        
         this
           .props
           .navigator
@@ -49,12 +50,13 @@ class AssetListItem extends Component {
             name: "myCamera",
             props: {
               accessToken: this.state.accessToken,
-              navigator: this.state.navigator
+              navigator: this.state.navigator,
+              handleUploadImage: this.handleUploadImage
             }
           });
       } else {
         
-        console.log("Camera permission denied")
+        Alert("Camera permission denied")
       }
     } catch (err) {
       console.warn(err)
