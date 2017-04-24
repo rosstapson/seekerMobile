@@ -1,11 +1,5 @@
 import React, {Component} from 'react';
-import {
-  Text,
-  View,
-  TouchableHighlight,
-  TouchableOpacity,
-  Image
-} from 'react-native';
+import {Text, View, TouchableHighlight, TouchableOpacity, Image, PermissionsAndroid} from 'react-native';
 
 import styles from './styles';
 import constants from './constants';
@@ -13,47 +7,111 @@ import constants from './constants';
 class AssetListItem extends Component {
   constructor(props) {
     super(props);
-    
-    this.state={
+
+    this.state = {
       asset: this.props.asset,
       onDetailPress: this.props.onDetailPress,
       onThumbnailPress: this.props.onThumbnailPress,
       // onCameraPress: this.props.onCameraPress,
-      imagesAreAvailable: this.props.asset.imageUrls[0]
+      imagesAreAvailable: this.props.asset.imageUrls[0],
+      navigator: this.props.navigator
     }
-    console.log(constants.IMG_API + this.state.asset.imageUrls[0]);
+    //console.log(constants.IMG_API + this.state.asset.imageUrls[0]);
   }
-  onCameraPress() {
-    alert("onCameraPress: " + this.props.asset.dnaCode)
+
+  async onCameraPress() {
+    console.log("genuflect.");
+    
+    try {
+      // scrap this bit and use requestMultiple, and then parse the result by using JSON.stringify
+      const currentPerms = await PermissionsAndroid.check(PermissionsAndroid.PERMISSIONS.WRITE_EXTERNAL_STORAGE);
+      if (!currentPerms) {
+        await PermissionsAndroid.request(PermissionsAndroid.PERMISSIONS.WRITE_EXTERNAL_STORAGE, {
+        'title': 'SeekerDNA Permissions',
+        'message': 'SeekerDNA needs your permission to access your extrnal storage.'
+        });
+      }
+      else {
+        console.log(currentPerms)
+      }
+      const granted = await PermissionsAndroid.request(PermissionsAndroid.PERMISSIONS.CAMERA, {
+        'title': 'SeekerDNA Permission',
+        'message': 'SeekerDNA needs your permission to access your camera.'
+      });
+     console.log(granted);
+      
+      if (granted === PermissionsAndroid.RESULTS.GRANTED) {
+        console.log("You can use the camera");
+        this
+          .props
+          .navigator
+          .push({
+            name: "myCamera",
+            props: {
+              accessToken: this.state.accessToken,
+              navigator: this.state.navigator
+            }
+          });
+      } else {
+        
+        console.log("Camera permission denied")
+      }
+    } catch (err) {
+      console.warn(err)
+    }
+
   }
   render() {
-    return(
+    return (
       <View style={styles.assetSmall}>
         <View style={styles.assetSmallTextBox}>
-          <TouchableOpacity onPress={() => {this.state.onDetailPress(this.props.asset.assetCode)}}>
-            <Text><Text style={styles.textBold}>Dna: </Text>{this.props.asset.dnaCode}</Text>
-            <Text><Text style={styles.textBold}>Asset: </Text>{this.props.asset.assetCode}</Text>
-            <Text><Text style={styles.textBold}>Description: </Text>{this.props.asset.description}</Text>
+          <TouchableOpacity
+            onPress={() => {
+            this
+              .state
+              .onDetailPress(this.props.asset.assetCode)
+          }}>
+            <Text>
+              <Text style={styles.textBold}>Dna:
+              </Text>{this.props.asset.dnaCode}</Text>
+            <Text>
+              <Text style={styles.textBold}>Asset:
+              </Text>{this.props.asset.assetCode}</Text>
+            <Text>
+              <Text style={styles.textBold}>Description:
+              </Text>{this.props.asset.description}</Text>
           </TouchableOpacity>
         </View>
-        <View style={styles.assetSmallThumbnail}>        
-          {this.state.imagesAreAvailable &&
-            <TouchableOpacity onPress={() => {this.state.onThumbnailPress(this.props.asset.assetCode)}}>
-              <Image             
-                source={{uri: constants.IMG_API + this.state.asset.imageUrls[0]}}            
-                style={{width: 100, height: 100}}            
-              />
-            </TouchableOpacity>
-          }
-          {!this.state.imagesAreAvailable &&
-            <TouchableOpacity onPress={this.onCameraPress.bind(this)}>
-              <Image             
-                source={require('./icons/ic_camera.png')}        
-                style={{width: 60, height: 60}}            
-              />               
-            </TouchableOpacity>
-          }
-          
+        <View style={styles.assetSmallThumbnail}>
+          {this.state.imagesAreAvailable && <TouchableOpacity
+            onPress={() => {
+            this
+              .state
+              .onThumbnailPress(this.props.asset.assetCode)
+          }}>
+            <Image
+              source={{
+              uri: constants.IMG_API + this.state.asset.imageUrls[0]
+            }}
+              style={{
+              width: 100,
+              height: 100
+            }}/>
+          </TouchableOpacity>
+}
+          {!this.state.imagesAreAvailable && <TouchableOpacity
+            onPress={this
+            .onCameraPress
+            .bind(this)}>
+            <Image
+              source={require('./icons/ic_camera.png')}
+              style={{
+              width: 60,
+              height: 60
+            }}/>
+          </TouchableOpacity>
+}
+
         </View>
       </View>
     )

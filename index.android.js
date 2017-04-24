@@ -8,6 +8,7 @@ import Root from './root';
 import Home from './home';
 import RegistrationComplete from './registrationComplete';
 import Assets from './assets';
+import MyCamera from './components/myCamera';
 // import Scratch from './scratch';
 import styles from './styles';
 
@@ -30,6 +31,10 @@ export default class seekerMobile extends Component {
     }
     if (route.name == 'assets') {
       return <Assets navigator={navigator}  {... route.props} />
+    }
+    if (route.name == 'myCamera') {
+      console.log("index.android.js routing...");
+      return <MyCamera navigator={navigator}  {... route.props} />
     }
   }
   render() {

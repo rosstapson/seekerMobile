@@ -44,6 +44,19 @@ const styles = StyleSheet.create({
     color: '#FFF',
     alignSelf: 'center'
   },
+  cameraPreview: {
+    flex: 1,
+    justifyContent: 'flex-end',
+    alignItems: 'center'
+  },
+  cameraCapture: {
+    flex: 1,
+    backgroundColor: '#fff',
+    borderRadius: 5,
+    color: '#000',
+    padding: 10,
+    margin: 40
+  },
   heading: {
     alignSelf: 'center',    
     fontSize: 35    
@@ -63,7 +76,7 @@ const styles = StyleSheet.create({
     fontSize: 25
   },
   navbar: {
-    flex: 1,
+    
     flexDirection: 'row',
     justifyContent: 'space-between',
     padding: 8

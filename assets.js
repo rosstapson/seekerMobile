@@ -48,6 +48,7 @@ class Assets extends Component {
          return <AssetListItem 
           asset={asset} 
           key={asset._id} 
+          navigator={this.state.navigator}
           onDetailPress={this.onDetailPress.bind(this)}
           onThumbnailPress={this.onThumbnailPress.bind(this)}
           />;
