@@ -29,9 +29,7 @@ class Assets extends Component {
   onDetailPress(assetId) {
     alert("detail: " + assetId);
   }
-  onThumbnailPress(assetId) {
-    alert("thumbnail: " + assetId);
-  }
+  
   render() {
     return (
       <ScrollView>
@@ -49,8 +47,9 @@ class Assets extends Component {
           asset={asset} 
           key={asset._id} 
           navigator={this.state.navigator}
+          accessToken={this.state.accessToken}
           onDetailPress={this.onDetailPress.bind(this)}
-          onThumbnailPress={this.onThumbnailPress.bind(this)}
+          
           />;
        })}
       </ScrollView>

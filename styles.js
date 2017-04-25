@@ -1,5 +1,5 @@
 /*jshint esversion: 6 */
-import {StyleSheet} from 'react-native';
+import {StyleSheet, Dimensions} from 'react-native';
 
 const styles = StyleSheet.create({
   container: {
@@ -57,6 +57,7 @@ const styles = StyleSheet.create({
     padding: 10,
     margin: 40
   },
+  
   heading: {
     alignSelf: 'center',    
     fontSize: 35    
@@ -69,6 +70,15 @@ const styles = StyleSheet.create({
   },
   iconButton : {
     backgroundColor: '#48BBEC'
+  },
+  imageBox: {
+    borderRadius: 3,
+    borderWidth: 0.5,
+    borderColor: '#d6d7da',
+    backgroundColor: '#ffffff',
+    margin: 10,
+    marginVertical: 5,
+    overflow: 'hidden',
   },
   label: {
     paddingTop: 20,

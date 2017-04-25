@@ -10,6 +10,7 @@ import RegistrationComplete from './registrationComplete';
 import Assets from './assets';
 import MyCamera from './components/myCamera';
 import PicPreview from './components/picPreview';
+import ImageGallery from './imageGallery.js';
 // import Scratch from './scratch';
 import styles from './styles';
 
@@ -38,6 +39,10 @@ export default class seekerMobile extends Component {
     }
     if (route.name == 'picPreview') {
       return <PicPreview navigator={navigator} {...route.props} />
+    }
+    if(route.name == 'imageGallery') {
+      console.log("routing image gallery");
+      return <ImageGallery navigator={navigator} {...route.props} />
     }
   }
   render() {
