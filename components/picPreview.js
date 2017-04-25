@@ -1,44 +1,23 @@
 import React, {Component} from 'react';
-import {View, Image, TouchableOpacity, Text, Alert} from 'react-native';
+import {View, Image, TouchableOpacity, Text} from 'react-native';
 
-
-import NavBar from './navbar';
 import styles from '../styles';
 
 export default class PicPreview extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            navigator: this.props.navigator,
             handleUploadImage: this.props.handleUploadImage,
             imagePath: this.props.imagePath,
-            asset: this.props.asset,
-            accessToken: this.props.accessToken
+            showCamera: this.props.showCamera            
         }
     }
-    onLeftButtonPressed() {
-        this
-            .props
-            .navigator
-            .pop();
-    }
-    async uploadImage() {
-        await this.state.handleUploadImage(this.state.imagePath, this.state.asset.dnaCode, this.state.accessToken);
-        Alert.alert("Image uploaded", "Hooray");
-
-    }
-    async cancel() {        
-        this.props.navigator.pop();        
-    }
+    
+    
     render() {
         return (
             <View style={styles.container}>
-                <NavBar
-                    title={"Preview"}
-                    leftButtonTitle={"Back"}
-                    onLeftButtonPressed={this
-                    .onLeftButtonPressed
-                    .bind(this)}/>
+               
                 <Image
                     source={{
                     uri: this.state.imagePath
@@ -52,15 +31,11 @@ export default class PicPreview extends Component {
                     }}>
                         <TouchableOpacity
                             
-                            onPress={this
-                            .uploadImage
-                            .bind(this)}>
+                            onPress={() => {this.state.handleUploadImage()}}>
                             <Image source={require('../icons/ic_file_upload_white.png')}/>
                         </TouchableOpacity>
                         <TouchableOpacity                            
-                            onPress={this
-                            .cancel
-                            .bind(this)}>
+                            onPress={() => {this.state.showCamera()} }>
                             <Image source={require('../icons/ic_cancel_white.png')}/>
                         </TouchableOpacity>
                     </View>
