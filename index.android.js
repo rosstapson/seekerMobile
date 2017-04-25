@@ -1,6 +1,7 @@
 
 import React, {Component} from 'react';
 import {AppRegistry, StyleSheet, Text, View, Navigator} from 'react-native';
+import { MenuContext } from 'react-native-menu';
 
 import Register from './register';
 import Login from './login';
@@ -32,12 +33,15 @@ export default class seekerMobile extends Component {
       return <RegistrationComplete navigator={navigator}/>
     }
     if (route.name == 'assets') {
+      console.log("routing assets");
       return <Assets navigator={navigator}  {... route.props} />
     }
     if (route.name == 'myCamera') {
+      console.log("routing myCamera");
       return <MyCamera navigator={navigator}  {... route.props} />
     }
     if (route.name == 'picPreview') {
+      console.log("routing picPreview");
       return <PicPreview navigator={navigator} {...route.props} />
     }
     if(route.name == 'imageGallery') {
@@ -47,7 +51,7 @@ export default class seekerMobile extends Component {
   }
   render() {
     return (
-      <View style={styles.container}>
+      <MenuContext style={styles.container}>
         <Navigator
           initialRoute={{
           name: "root"
@@ -58,7 +62,7 @@ export default class seekerMobile extends Component {
           .bind(this)}
           //navigationBar={< Navigator.NavigationBar routeMapper = {{ LeftButton: (route, navigator, index, navState) => { return (<Text>Cancel</Text>); }, RightButton: (route, navigator, index, navState) => { return (<Text>Done</Text>); }, Title: (route, navigator, index, navState) => { return (<Text>Awesome Nav Bar</Text>); }, }}style = {{backgroundColor: 'blue'}}/>}
           />
-      </View>
+      </MenuContext>
     );
   }
 }

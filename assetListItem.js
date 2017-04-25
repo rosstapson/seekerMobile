@@ -28,41 +28,7 @@ class AssetListItem extends Component {
 
     //console.log(constants.IMG_API + this.state.asset.imageUrls[0]);
   }
-  async handleUploadImage(path, dnaCode) {
-    console.log("uploading image: " + path + " for asset " + dnaCode);
-    let formData = new FormData();
-    let username = await AsyncStorage.getItem("username");
-    let accessToken = await AsyncStorage.getItem(constants.ACCESS_TOKEN);
-
-    formData.append('username', username);
-    formData.append('dnaCode', dnaCode);
-    //formData.append('image', path);
-    let photo = {
-      uri: path,
-      type: 'image/jpeg',
-      name: 'temp.jpg'
-    };
-    formData.append('image', photo);
-
-    let config = {
-      method: 'post',
-      headers: {
-        'x-access-token': accessToken
-      },
-      body: formData
-    }
-
-    return fetch("https://seekerdnasecure.co.za:3002/file-upload", config)
-      .then(response => response.json().then(json => ({json, response})))
-      .then(({json, response}) => {
-        if (!response.ok) {
-          Alert.alert("Unable to Upload Image", json.errorMessage);
-        }
-
-        return json.imageUrl;
-
-      });
-  };
+  
 
   async onCameraPress() {
 
@@ -155,9 +121,9 @@ class AssetListItem extends Component {
           </TouchableOpacity>
 }
           {!this.state.imagesAreAvailable && <TouchableOpacity
-            onPress={this
-            .onCameraPress
-            .bind(this)}>
+            onPress={() => {
+            this.onThumbnailPress(this.state.asset)
+          }}>
             <Image
               source={require('./icons/ic_add_image.png')}
               style={{

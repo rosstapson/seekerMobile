@@ -85,8 +85,20 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
     fontSize: 25
   },
-  navbar: {
+  menuOption: {},
+  menuOptionText: {
+    fontSize: 20,    
+  },
+  menuTrigger: {
+    flexDirection: 'row',
+    justifyContent: 'flex-end'
+  },
+  menuTriggerText: {
+    fontSize: 30,
+    fontWeight: 'bold',
     
+  },
+  navbar: {    
     flexDirection: 'row',
     justifyContent: 'space-between',
     padding: 8
