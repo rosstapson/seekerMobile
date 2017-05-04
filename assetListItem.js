@@ -29,50 +29,31 @@ class AssetListItem extends Component {
     //console.log(constants.IMG_API + this.state.asset.imageUrls[0]);
   }
   
-
-  async onCameraPress() {
-
-    try {
-      // scrap this bit and use requestMultiple, and then parse the result by using
-      // JSON.stringify
+  async checkPermissions() {
+    
       const currentPerms = await PermissionsAndroid.check(PermissionsAndroid.PERMISSIONS.WRITE_EXTERNAL_STORAGE);
+      console.log("current permissions: " + currentPerms);
       if (!currentPerms) {
-        await PermissionsAndroid.request(PermissionsAndroid.PERMISSIONS.WRITE_EXTERNAL_STORAGE, {
-          'title': 'SeekerDNA Permissions',
-          'message': 'SeekerDNA needs your permission to access your extrnal storage.'
+        let granted = await PermissionsAndroid.requestMultiple([PermissionsAndroid.PERMISSIONS.CAMERA, PermissionsAndroid.PERMISSIONS.WRITE_EXTERNAL_STORAGE],
+          {
+            'title': 'Дайте разрешение камеры самым срочным тов',
+            'message': 'Вам нужно разрешение для камеры, чтобы делать фотографии, самые срочные'
+          }
+        );
+        console.log(granted);
+        let allPermsGranted = true;
+        Object.keys(granted).forEach(function(key) {
+          console.log(key, granted[key]);
+          if (granted[key] !== PermissionsAndroid.RESULTS.GRANTED) {
+            console.log(key + " : " + granted[key]);
+            throw new Error("Required permissions have not been granted: " +key);
+          }
         });
-      } else {
-        console.log("current permissions: " + currentPerms)
       }
-      const granted = await PermissionsAndroid.request(PermissionsAndroid.PERMISSIONS.CAMERA, {
-        'title': 'SeekerDNA Permission',
-        'message': 'SeekerDNA needs your permission to access your camera.'
-      });
-
-      if (granted === PermissionsAndroid.RESULTS.GRANTED) {
-        console.log("...about to go to camera...");
-        this
-          .props
-          .navigator
-          .push({
-            name: "myCamera",
-            props: {
-              accessToken: this.state.accessToken,
-              navigator: this.state.navigator,
-              handleUploadImage: this.handleUploadImage,
-              asset: this.state.asset
-            }
-          });
-        console.log("...and back from camera...");
-      } else {
-
-        Alert.alert("Error", "Camera permission denied")
-      }
-    } catch (err) {
-      console.warn(err)
-    }
   }
-  onThumbnailPress(asset) {
+  async onThumbnailPress(asset) {
+    try {
+      await this.checkPermissions();      
     this
       .props
       .navigator
@@ -83,6 +64,10 @@ class AssetListItem extends Component {
           asset: asset
         }
       });
+      }
+    catch(err) {
+      Alert.alert("Permissions Error", err.message);      
+    }
   }
   render() {
     return (

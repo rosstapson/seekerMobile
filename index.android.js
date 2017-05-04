@@ -33,19 +33,19 @@ export default class seekerMobile extends Component {
       return <RegistrationComplete navigator={navigator}/>
     }
     if (route.name == 'assets') {
-      console.log("routing assets");
+      //console.log("routing assets");
       return <Assets navigator={navigator}  {... route.props} />
     }
     if (route.name == 'myCamera') {
-      console.log("routing myCamera");
+      //console.log("routing myCamera");
       return <MyCamera navigator={navigator}  {... route.props} />
     }
     if (route.name == 'picPreview') {
-      console.log("routing picPreview");
+      //console.log("routing picPreview");
       return <PicPreview navigator={navigator} {...route.props} />
     }
     if(route.name == 'imageGallery') {
-      console.log("routing image gallery");
+      //console.log("routing image gallery");
       return <ImageGallery navigator={navigator} {...route.props} />
     }
   }
