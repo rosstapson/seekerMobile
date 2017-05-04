@@ -71,6 +71,9 @@ const styles = StyleSheet.create({
   iconButton : {
     backgroundColor: '#48BBEC'
   },
+  image: {
+    margin: 4,
+  },
   imageBox: {
     borderRadius: 3,
     borderWidth: 0.5,
@@ -79,6 +82,9 @@ const styles = StyleSheet.create({
     margin: 10,
     marginVertical: 5,
     overflow: 'hidden',
+  },
+  info: {
+    flex: 1,
   },
   label: {
     paddingTop: 20,
@@ -118,6 +124,10 @@ const styles = StyleSheet.create({
   },
   textBold: {
     fontWeight: 'bold'
+  },
+  url: {
+    fontSize: 9,
+    marginBottom: 14,
   },
   error: {
     color: 'red',
