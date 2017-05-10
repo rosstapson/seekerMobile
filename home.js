@@ -45,6 +45,18 @@ class Home extends Component {
     });
     
   }
+  async captureAsset() {
+    let token = this.state.accessToken;
+     let username = await AsyncStorage.getItem(constants.USERNAME);    
+     this.props.navigator.push({
+      name: "capture",
+      props: {
+        accessToken: this.state.accessToken,
+        username: username,        
+        navigator: this.props.navigator
+      }
+    });
+  }
   
   async deleteToken() {
     try {
@@ -85,10 +97,12 @@ class Home extends Component {
         source={require('./img/logo.png')}
         style={styles.logo}
         />
-        <Text style={styles.heading} >Home</Text>
         
         <TouchableHighlight onPress={this.viewAssets.bind(this)} style={styles.button}>
-          <Text style={styles.buttonText}>Assets</Text>
+          <Text style={styles.buttonText}>View Assets</Text>
+        </TouchableHighlight>
+        <TouchableHighlight onPress={this.captureAsset.bind(this)} style={styles.button}>
+          <Text style={styles.buttonText}>Capture Asset</Text>
         </TouchableHighlight>
         <TouchableHighlight onPress={this.userAccount.bind(this)} style={styles.button}>
           <Text style={styles.buttonText}>Account</Text>

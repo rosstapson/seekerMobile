@@ -15,12 +15,16 @@ const styles = StyleSheet.create({
     alignSelf: 'stretch',
     flexDirection: 'row',
     justifyContent: 'space-between',
-    padding: 8
+    padding: 6
   },
   assetSmallTextBox: {
-    
+    flex: 1,
+    alignSelf: 'stretch',    
+    justifyContent: 'center',
+    alignItems: 'flex-start'
   },
   assetSmallThumbnail: {
+    flex: 1,
     alignItems: 'flex-end'
   },
   input: {
@@ -60,7 +64,7 @@ const styles = StyleSheet.create({
   
   heading: {
     alignSelf: 'center',    
-    fontSize: 35    
+    fontSize: 30    
   },
   headingContainer : {
     backgroundColor: '#48BBEC',
@@ -107,12 +111,13 @@ const styles = StyleSheet.create({
   navbar: {    
     flexDirection: 'row',
     justifyContent: 'space-between',
-    padding: 8
+    alignItems: 'flex-start',
+    padding: 2
   },
   navButton: {
     flexDirection: 'row',
     backgroundColor: 'red',
-    padding: 8,
+    padding: 2,
     borderRadius: 6,
     justifyContent: 'space-around',
     width: 60

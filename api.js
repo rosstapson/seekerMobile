@@ -5,6 +5,29 @@ import {
 import constants from './constants';
 
 const Api = {
+  async addAssetForUser(asset, username, token) {
+    let config = {
+            method: 'post',
+            headers: {
+                'content-type': 'application/json',
+                'x-access-token': token
+        },
+        body: JSON.stringify({
+            username: username,
+            asset: asset
+        })
+    };
+    let result = await fetch("https://seekerdnasecure.co.za:3002/addasset", config);
+    
+    if (result.status >= 200 && result.status < 300) {       
+        //handle success              
+        return;        
+      } else {        
+        let error = res;
+        throw error;
+      }
+
+  },
   async getAssetsForUser(username, token) {
  
     try {
@@ -30,7 +53,9 @@ const Api = {
       }
     }
     catch(error) {
-      console.log("api.getAssets: " + JSON.stringify(error));
+      
+      console.log("api.getAssets: " + message);
+      alert(error.message);
     }
   }  
 }

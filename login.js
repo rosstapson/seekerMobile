@@ -111,8 +111,13 @@ class Login extends Component {
         throw error;
       }
     } catch (error) {
-      this.setState({error: error});
-      console.log("error: " + JSON.stringify(error));
+      let message = JSON.stringify(error);
+      if (message == '{}') {
+        message = 'Unable to communicate with server';
+      }
+      this.setState({error: message});
+      alert(message);
+      console.log("error: " + message);
     }
   }
   render() {

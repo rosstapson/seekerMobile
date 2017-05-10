@@ -11,7 +11,8 @@ import RegistrationComplete from './registrationComplete';
 import Assets from './assets';
 import MyCamera from './components/myCamera';
 import PicPreview from './components/picPreview';
-import ImageGallery from './imageGallery.js';
+import ImageGallery from './imageGallery';
+import CaptureAsset from './captureAsset'
 // import Scratch from './scratch';
 import styles from './styles';
 
@@ -48,6 +49,10 @@ export default class seekerMobile extends Component {
       //console.log("routing image gallery");
       return <ImageGallery navigator={navigator} {...route.props} />
     }
+    if(route.name == 'capture') {
+      //console.log("routing capture asset");
+      return <CaptureAsset navigator={navigator} {...route.props} />
+    }
   }
   render() {
     return (
@@ -55,12 +60,12 @@ export default class seekerMobile extends Component {
         <Navigator
           initialRoute={{
           name: "root"
-          //name: "registrationComplete"
+         
         }}
           renderScene={this
           .renderScene
           .bind(this)}
-          //navigationBar={< Navigator.NavigationBar routeMapper = {{ LeftButton: (route, navigator, index, navState) => { return (<Text>Cancel</Text>); }, RightButton: (route, navigator, index, navState) => { return (<Text>Done</Text>); }, Title: (route, navigator, index, navState) => { return (<Text>Awesome Nav Bar</Text>); }, }}style = {{backgroundColor: 'blue'}}/>}
+          
           />
       </MenuContext>
     );

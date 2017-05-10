@@ -55,12 +55,12 @@ class Root extends Component {
         this.navigate('home');
       } else {
           //Handle error
-          console.log("failure in a hebrew accent");
+          //console.log("failure in a hebrew accent");
           let error = await response.json();
           throw error;
       }
     } catch(error) {
-        console.log("error response: " + error);
+        console.log("Token expired.");
     }
   }
   render() {
@@ -70,11 +70,13 @@ class Root extends Component {
         source={require('./img/logo.png')}
         style={styles.logo}
         />
-        <TouchableHighlight onPress={ this.navigate.bind(this,'register') } style={styles.button}>
-          <Text style={styles.buttonText}>Register</Text>
-        </TouchableHighlight>
+        
         <TouchableHighlight onPress={ this.navigate.bind(this, 'login') } style={styles.button}>
           <Text style={styles.buttonText}>Login</Text>
+        </TouchableHighlight>
+
+        <TouchableHighlight onPress={ this.navigate.bind(this,'register') } style={styles.button}>
+          <Text style={styles.buttonText}>Register</Text>
         </TouchableHighlight>
       </View>
     );

@@ -32,7 +32,7 @@ class AssetListItem extends Component {
   async checkPermissions() {
     
       const currentPerms = await PermissionsAndroid.check(PermissionsAndroid.PERMISSIONS.WRITE_EXTERNAL_STORAGE);
-      console.log("current permissions: " + currentPerms);
+      //console.log("current permissions: " + currentPerms);
       if (!currentPerms) {
         let granted = await PermissionsAndroid.requestMultiple([PermissionsAndroid.PERMISSIONS.CAMERA, PermissionsAndroid.PERMISSIONS.WRITE_EXTERNAL_STORAGE],
           {
@@ -77,7 +77,7 @@ class AssetListItem extends Component {
             onPress={() => {
             this
               .state
-              .onDetailPress(this.props.asset.assetCode)
+              .onDetailPress(this.props.asset)
           }}>
             <Text>
               <Text style={styles.textBold}>Dna:
@@ -100,8 +100,8 @@ class AssetListItem extends Component {
               uri: constants.IMG_API + this.state.asset.imageUrls[0]
             }}
               style={{
-              width: 100,
-              height: 100
+              width: 150,
+              height: 150
             }}/>
           </TouchableOpacity>
 }

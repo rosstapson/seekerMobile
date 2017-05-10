@@ -35,7 +35,7 @@ export default class ImageGallery extends Component {
         }
     }
     async handleUploadImage() {
-        console.log("uploading image: " + this.state.previewPath.path + " for asset " + this.state.asset.dnaCode);
+       
         let formData = new FormData();
         let username = await AsyncStorage.getItem("username");
         let accessToken = await AsyncStorage.getItem(constants.ACCESS_TOKEN);
@@ -44,7 +44,7 @@ export default class ImageGallery extends Component {
         formData.append('dnaCode', this.state.asset.dnaCode);
 
         let photo = {
-            uri: this.state.previewPath.path,
+            uri: this.state.previewPath,
             type: 'image/jpeg',
             name: 'temp.jpg'
         };
@@ -99,37 +99,30 @@ export default class ImageGallery extends Component {
         }
     }
      _onSwitchChange = (value) => {
-    invariant(this._cameraRollView, 'ref should be set');
+    
     this._cameraRollView.rendererChanged();
     this.setState({ bigImages: value });
   }
 
-  loadAsset = (asset) => {
-    if (this.props.navigator) {
-      this.props.navigator.push({
-        title: 'Camera Roll Image',
-        component: AssetScaledImageExampleView,
-        backButtonTitle: 'Back',
-        passProps: { asset: asset },
-      });
-    }
-  }
     _renderImage = (asset) => {
     const imageSize = this.state.bigImages ? 150 : 75;
     const imageStyle = [styles.image, {width: imageSize, height: imageSize}];
-    const {location} = asset.node;
-    const locationStr = location ? JSON.stringify(location) : 'Unknown location';
+    
+    let myUri = asset.node.image.uri;
+    // const {location} = asset.node;
+    // const locationStr = location ? JSON.stringify(location) : 'Unknown location';
     return (
-      <TouchableOpacity key={asset} onPress={ this.loadAsset.bind( this, asset ) }>
+      <TouchableOpacity key={asset} onPress={(asset) => { 
+          
+          this.showPreview(myUri)}
+        }>
         <View style={styles.row}>
           <Image
             source={asset.node.image}
             style={imageStyle}
           />
           <View style={styles.info}>
-            <Text style={styles.url}>{asset.node.image.uri}</Text>
-            <Text>{locationStr}</Text>
-            <Text>{asset.node.group_name}</Text>
+            <Text style={styles.url}>{asset.node.image.uri}</Text>            
             <Text>{new Date(asset.node.timestamp).toString()}</Text>
           </View>
         </View>
@@ -138,6 +131,7 @@ export default class ImageGallery extends Component {
   }
 
     showPreview(path) {
+        alert(path);
         this.setState({showCamera: false, showImages: false, showDeviceGallery: false, showPreview: true, previewPath: path});
     }
     showImages() {
@@ -192,25 +186,13 @@ export default class ImageGallery extends Component {
                     .bind(this)}/>
 }
                 {this.state.showDeviceGallery && <View>
-                    <Switch 
-                    onValueChange={this._onSwitchChange} 
-                    value={this.state.bigImages}/> 
-                    <Text> {
-                    (this.state.bigImages ? 'Big' : 'Small') + ' Images' } 
-                    </Text>
+                    
              <CameraRollView
-                ref = {
-                    (ref) => {
-                        this._cameraRollView = ref;
-                    }
-                }
-                batchSize = {
-                    20
-                }
-               
-                renderImage = {
-                    this._renderImage
-                }
+                ref = {(ref) => { this._cameraRollView = ref; }}
+                batchSize = {20}               
+                renderImage = {this._renderImage}
+                showPreview={this.showPreview.bind(this)}
+
                 />
                 </View>
       
@@ -219,7 +201,7 @@ export default class ImageGallery extends Component {
                     handleUploadImage={this
                     .handleUploadImage
                     .bind(this)}
-                    imagePath={this.state.previewPath.path}
+                    imagePath={this.state.previewPath}
                     showCamera={this
                     .showCamera
                     .bind(this)}/>}
