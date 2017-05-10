@@ -17,6 +17,7 @@ class Assets extends Component {
     this.state={
       assets: this.props.assets,
       accessToken: this.props.accessToken,
+      username: this.props.username,
       navigator: this.props.navigator
     }
   }
@@ -26,8 +27,16 @@ class Assets extends Component {
   onRightButtonPressed() {
     alert("Home Button Pressed")
   }
-  onDetailPress(assetId) {
-    alert("detail: " + assetId);
+  onDetailPress(asset) {
+    this.props.navigator.push({
+      name: "viewAsset",
+      props: {
+        accessToken: this.state.accessToken,
+        username: this.state.username,
+        asset: asset,
+        navigator: this.props.navigator
+      }
+    });
   }
   
   render() {

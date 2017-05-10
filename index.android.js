@@ -13,6 +13,8 @@ import MyCamera from './components/myCamera';
 import PicPreview from './components/picPreview';
 import ImageGallery from './imageGallery';
 import CaptureAsset from './captureAsset'
+import ViewAsset from './viewAsset';
+import UpdateAsset from './updateAsset';
 // import Scratch from './scratch';
 import styles from './styles';
 
@@ -28,7 +30,7 @@ export default class seekerMobile extends Component {
       return <Login navigator={navigator}/>
     }
     if (route.name == 'home') {
-      return <Home navigator={navigator}/>
+      return <Home navigator={navigator} {... route.props}/>
     }
     if (route.name == 'registrationComplete') {
       return <RegistrationComplete navigator={navigator}/>
@@ -52,6 +54,14 @@ export default class seekerMobile extends Component {
     if(route.name == 'capture') {
       //console.log("routing capture asset");
       return <CaptureAsset navigator={navigator} {...route.props} />
+    }
+    if(route.name == 'viewAsset') {
+      //console.log("routing viesw asset");
+      return <ViewAsset navigator={navigator} {...route.props} />
+    }
+    if(route.name == 'updateAsset') {
+      //console.log("routing update asset");
+      return <UpdateAsset navigator={navigator} {...route.props} />
     }
   }
   render() {

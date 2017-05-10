@@ -10,6 +10,14 @@ const styles = StyleSheet.create({
     padding: 10,
     paddingTop: 10
   },
+  assetDetailRow: {
+    minHeight: 50,
+    alignSelf: 'stretch',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    padding: 4
+
+  },
   assetSmall: {
     minHeight: 70,
     alignSelf: 'stretch',
@@ -93,7 +101,17 @@ const styles = StyleSheet.create({
   label: {
     paddingTop: 20,
     alignSelf: 'center',
-    fontSize: 25
+    fontSize: 20
+  },
+  labelRight: {
+    paddingTop: 20,
+    alignSelf: 'flex-end',
+    fontSize: 20
+  },
+   labelSmall: {
+    paddingTop: 20,
+    alignSelf: 'center',
+    fontSize: 15
   },
   menuOption: {},
   menuOptionText: {
@@ -126,6 +144,10 @@ const styles = StyleSheet.create({
     color: 'red',
     fontSize: 20,
     
+  },
+  textCenter: {
+    fontSize: 15,
+    alignSelf: 'center'
   },
   textBold: {
     fontWeight: 'bold'
