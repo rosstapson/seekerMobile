@@ -37,14 +37,12 @@ export default class ViewAsset extends Component {
             accessToken: this.state.accessToken,
             asset: this.state.asset,
             navigator: this.props.navigator,
-            handleUpdateAsset: this.handleUpdateAsset
+            username: this.state.username
         }
         });
     }
     
-    handleUpdateAsset(asset, username, token) {
-        Api.updateAssetForUser(asset, username, accessToken);
-    }
+    
 
     render() {
         return (
@@ -55,7 +53,7 @@ export default class ViewAsset extends Component {
           onLeftButtonPressed={this.onLeftButtonPressed.bind(this)}
          
          />      
-         
+        
          {this.state.pendingUpdateAsset &&
             <ActivityIndicator 
             size="large"

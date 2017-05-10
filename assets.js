@@ -50,7 +50,6 @@ class Assets extends Component {
           onRightButtonPressed={this.onRightButtonPressed.bind(this)}
          />        
         
-       {/* <FlatList data={this.state.assets} renderItem={this.renderItem}/> */}
        {this.state.assets.map((asset) => {
          return <AssetListItem 
           asset={asset} 

@@ -31,10 +31,18 @@ export default class UpdateAsset extends Component {
     onLeftButtonPressed() {
         this.props.navigator.pop();
     }
-    handleUpdateClicked() {
-        this.state.handleUpdateAsset(this.state.asset, this.state.username, this.state.accessToken);
+    
+    async handleUpdateClicked() {
+        try {
+            this.setState({pendingUpdateAsset: true});
+            let result = await Api.updateAssetForUser(this.state.asset, this.state.username, this.state.accessToken);
+            this.setState({pendingUpdateAsset: false});
+            Alert.alert("Oh well done.", result);
+        }
+        catch(error) {
+            Alert.alert("Update Failed", error.errorMessage);
+        }
     }
-
     render() {
         return (
             <ScrollView>
@@ -53,34 +61,35 @@ export default class UpdateAsset extends Component {
         }
         {!this.state.pendingUpdateAsset &&
             <View>
-                <Text style={styles.label}>DNA Code <Text style={styles.required}> *</Text></Text>
+            
+                <Text style={styles.label}>DNA Code<Text style={styles.required}> *</Text></Text>
                 <TextInput
                 style={styles.input}
                 defaultValue={this.state.asset.dnaCode}
-                onChangeText={(value) => this.setState({dnaCode: value})}/>
+                onChangeText={(value) => this.setState({asset: {...this.state.asset, dnaCode: value}})}/>
 
                 <Text style={styles.label}>Asset Code <Text style={styles.required}> *</Text></Text>
                 <TextInput
                 style={styles.input}
                 defaultValue={this.state.asset.assetCode}
-                onChangeText={(value) => this.setState({assetCode: value})}/>
+                onChangeText={(value) => this.setState({asset: {...this.state.asset, assetCode: value}})}/>
 
                 <Text style={styles.label}>Description</Text>
                 <TextInput
                 style={styles.input}
                 defaultValue={this.state.asset.description}
-                onChangeText={(value) => this.setState({description: value})}/>
+                onChangeText={(value) => this.setState({asset: {...this.state.asset, description: value}})}/>
 
                 <Text style={styles.label}>Location</Text>
                 <TextInput
                 style={styles.input}
                 defaultValue={this.state.asset.location}
-                onChangeText={(value) => this.setState({location: value})}/>
+                onChangeText={(value) => this.setState({asset: {...this.state.asset, location: value}})}/>
 
                 <Text style={styles.label}>Unit of Measure</Text>
                 <Picker
                 selectedValue={this.state.asset.unitOfMeasure}
-                onValueChange={(val) => this.setState({unitOfMeasure: val})}
+                onValueChange={(val) => this.setState({asset: {...this.state.asset, unitOfMeasure: val}})}
                 >
                     <Picker.Item label="EA" value="EA" />
                     <Picker.Item label="Kg" value="Kg" />
@@ -93,7 +102,7 @@ export default class UpdateAsset extends Component {
                 <Text style={styles.label}>Audited</Text>
                 <Picker
                 selectedValue={this.state.asset.audited}
-                onValueChange={(val) => this.setState({audited: val})}
+                onValueChange={(val) => this.setState({asset: {...this.state.asset, audited: val}})}
                 >
                     <Picker.Item label="Yes" value="Yes" />
                     <Picker.Item label="No" value="No" />
@@ -102,7 +111,7 @@ export default class UpdateAsset extends Component {
 
                 <Text style={styles.label}>Status</Text>
                 <Picker selectedValue={this.state.asset.status}
-                onValueChange={(val) => this.setState({status: val})}
+                onValueChange={(val) => this.setState({asset: {...this.state.asset, status: val}})}
                 >
                     <Picker.Item label="Alert" value="Alert" />
                     <Picker.Item label="Active" value="Active" />
@@ -113,37 +122,37 @@ export default class UpdateAsset extends Component {
                 <TextInput
                 style={styles.input}
                 defaultValue={this.state.asset.dateReported}
-                onChangeText={(value) => this.setState({dateReported: value})}/>
+                onChangeText={(value) => this.setState({asset: {...this.state.asset, dateReported: value}})}/>
 
                 <Text style={styles.label}>Case Number</Text>
                 <TextInput
                 style={styles.input}
                 defaultValue={this.state.asset.caseNumber}
-                onChangeText={(value) => this.setState({caseNumber: value})}/>
+                onChangeText={(value) => this.setState({asset: {...this.state.asset, caseNumber: value}})}/>
 
                 <Text style={styles.label}>At Police Station</Text>
                 <TextInput
                 style={styles.input}
                 defaultValue={this.state.asset.atPoliceStation}
-                onChangeText={(value) => this.setState({atPoliceStation: value})}/>
+                onChangeText={(value) => this.setState({asset: {...this.state.asset, atPoliceStation: value}})}/>
 
                 <Text style={styles.label}>Next Audit Date</Text>
                 <TextInput
                 style={styles.input}
                 defaultValue={this.state.asset.nextAuditDate}
-                onChangeText={(value) => this.setState({nextAuditDate: value})}/>
+                onChangeText={(value) => this.setState({asset: {...this.state.asset, nextAuditDate: value}})}/>
 
                 <Text style={styles.label}>Applied By</Text>
                 <TextInput
                 style={styles.input}
                 defaultValue={this.state.asset.appliedBy}
-                onChangeText={(value) => this.setState({appliedBy: value})}/>
+                onChangeText={(value) => this.setState({asset: {...this.state.asset, appliedBy: value}})}/>
 
                 <Text style={styles.label}>Checked By</Text>
                 <TextInput
                 style={styles.input}
                 defaultValue={this.state.asset.checkedBy}
-                onChangeText={(value) => this.setState({checkedBy: value})}/>
+                onChangeText={(value) => this.setState({asset: {...this.state.asset, checkedBy: value}})}/>
 
                 <TouchableHighlight
                     style={styles.button}

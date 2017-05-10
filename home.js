@@ -40,7 +40,8 @@ class Home extends Component {
       props: {
         accessToken: this.state.accessToken,
         assets: assets,
-        navigator: this.props.navigator
+        navigator: this.props.navigator,
+        username: username
       }
     });
     

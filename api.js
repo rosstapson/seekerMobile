@@ -19,12 +19,12 @@ const Api = {
         })
     };
     let result = await fetch("https://seekerdnasecure.co.za:3002/updateasset", config);
-    
-    if (result.status >= 200 && result.status < 300) {       
+    let json = await JSON.stringify(result);
+    if (result.status >= 200 && result.status <= 299) {
+      
         //handle success              
-        return;        
-      } else {        
-        let error = res;
+        return json.assets;        
+      } else {
         throw error;
       }
 
@@ -47,13 +47,13 @@ const Api = {
         //handle success              
         return;        
       } else {        
-        let error = res;
+        let error = result;
         throw error;
       }
 
   },
   async getAssetsForUser(username, token) {
-    alert("username:" + username)
+    
     try {
       //Alert.alert("getAssets", "some text");
       let response = await fetch('https://seekerdnasecure.co.za:3002/assets', {
