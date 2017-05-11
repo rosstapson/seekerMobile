@@ -32,7 +32,7 @@ export default class MyCamera extends Component {
                 .then((data) => {                   
                     // mediaUri:"content://media/external/images/media/67"
                     // path:"file:///storage/emulated/0/Pictures/IMG_20170424_082114.jpg"
-                   this.state.showPreview(data);                    
+                   this.state.showPreview(data.path);                    
                 })
                 .catch(err => console.error(err));
         }

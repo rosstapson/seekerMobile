@@ -13,6 +13,7 @@ var {
   Platform,
   StyleSheet,
   View,
+  Text
 } = ReactNative;
 
 var groupByEveryN = require('groupByEveryN');
@@ -129,12 +130,13 @@ var CameraRollView = React.createClass({
   },
 
   render() {
+    
     return (
       <ListView
         renderRow={this._renderRow}
         renderFooter={this._renderFooterSpinner}
         onEndReached={this._onEndReached}
-        style={styles.container}
+        
         dataSource={this.state.dataSource}
         enableEmptySections
       />
@@ -157,6 +159,7 @@ var CameraRollView = React.createClass({
 
   _renderFooterSpinner: function() {
     if (!this.state.noMore) {
+      
       return <ActivityIndicator />;
     }
     return null;
@@ -174,6 +177,7 @@ var CameraRollView = React.createClass({
 
     return (
       <View style={styles.row}>
+     
         {images}
       </View>
     );

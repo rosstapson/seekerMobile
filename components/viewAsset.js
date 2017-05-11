@@ -2,67 +2,29 @@ import React, { Component } from 'react';
 import {
     Text,
     TextInput,
-    View,
-    ScrollView,
-    ActivityIndicator,
+    View,    
     Picker,
-    TouchableHighlight,
-    Alert
+    TouchableHighlight
+    
 } from 'react-native';
 
-import NavBar from './components/navbar';
-import Api from './api';
-
-import styles from './styles';
+import styles from '../styles';
 
 export default class ViewAsset extends Component {    
     constructor(props) {
         super(props);
         this.state = {
             username: this.props.username,
-            accessToken: this.props.accessToken,
-            pendingUpdateAsset: false,
-            // asset stuff:
-            asset: this.props.asset
-            
+            accessToken: this.props.accessToken,            
+            onEditPressed: this.props.onEditPressed,
+            asset: this.props.asset            
         }
     }
-    onLeftButtonPressed() {
-        this.props.navigator.pop();
-    }
-    onEditPressed() {       
-        this.props.navigator.push({
-        name: "updateAsset",
-        props: {
-            accessToken: this.state.accessToken,
-            asset: this.state.asset,
-            navigator: this.props.navigator,
-            username: this.state.username
-        }
-        });
-    }
-    
-    
-
+   
     render() {
-        return (
-            <ScrollView>
-        <NavBar 
-          title={"Asset Details"} 
-          leftButtonTitle={"Back"} 
-          onLeftButtonPressed={this.onLeftButtonPressed.bind(this)}
-         
-         />      
-        
-         {this.state.pendingUpdateAsset &&
-            <ActivityIndicator 
-            size="large"
-            color="blue"
-          />
-        }
-        {!this.state.pendingUpdateAsset &&
+        return (      
             <View>
-
+                <Text style={styles.heading}>Asset Details</Text>
                 <View style={styles.assetDetailRow}>
                     <View style={styles.assetSmallTextBox}>
                         <Text style={styles.labelRight}>DNA Code</Text>
@@ -180,12 +142,10 @@ export default class ViewAsset extends Component {
                 </View>
 
                 <TouchableHighlight style={styles.button}
-                    onPress={this.onEditPressed.bind(this)}>                    
+                    onPress={() => {this.state.onEditPressed(this.state.asset)}}>                    
                     <Text style={styles.buttonText}>Edit Asset</Text>
                     </TouchableHighlight>
             </View>
-            }
-         </ScrollView>
          
         )
     }

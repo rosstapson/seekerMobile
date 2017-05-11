@@ -19,13 +19,12 @@ const Api = {
         })
     };
     let result = await fetch("https://seekerdnasecure.co.za:3002/updateasset", config);
-    let json = await JSON.stringify(result);
+    let json = await result.json();
     if (result.status >= 200 && result.status <= 299) {
-      
-        //handle success              
+          
         return json.assets;        
       } else {
-        throw error;
+        throw new Error("status" + json.errorMessage);
       }
 
   },

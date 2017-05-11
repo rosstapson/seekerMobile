@@ -17,7 +17,7 @@ export default class Button extends Component {
     return (
        <View style = {[styles.navButton, {backgroundColor: bgColor}]} > 
         
-        <Text style = {[styles.navButtonText, {fontWeight: textWeight, color: textColor}]}> {this.props.text} </Text>
+        <Text style = {{fontWeight: textWeight, color: textColor, minWidth: 'auto'}}> {this.props.text} </Text>
       </View >
       )
     }

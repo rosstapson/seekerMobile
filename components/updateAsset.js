@@ -3,70 +3,35 @@ import {
     Text,
     TextInput,
     View,
-    ScrollView,
+    
     ActivityIndicator,
     Picker,
     TouchableHighlight,
-    Alert
+    
 } from 'react-native';
 
-import NavBar from './components/navbar';
-import Api from './api';
 
-import styles from './styles';
+import styles from '../styles';
 
 export default class UpdateAsset extends Component {    
     constructor(props) {
         super(props);
         this.state = {
             username: this.props.username,
-            accessToken: this.props.accessToken,
-            pendingUpdateAsset: false,
-            // asset stuff:
+            accessToken: this.props.accessToken,            
             asset: this.props.asset,
-            handleUpdateAsset: this.props.handleUpdateAsset
+            handleUpdateClicked: this.props.handleUpdateClicked
             
         }
     }
-    onLeftButtonPressed() {
-        this.props.navigator.pop();
-    }
-    
-    async handleUpdateClicked() {
-        try {
-            this.setState({pendingUpdateAsset: true});
-            let result = await Api.updateAssetForUser(this.state.asset, this.state.username, this.state.accessToken);
-            this.setState({pendingUpdateAsset: false});
-            Alert.alert("Oh well done.", result);
-        }
-        catch(error) {
-            Alert.alert("Update Failed", error.errorMessage);
-        }
-    }
+   
     render() {
         return (
-            <ScrollView>
-        <NavBar 
-          title={"Edit"} 
-          leftButtonTitle={"Back"} 
-          onLeftButtonPressed={this.onLeftButtonPressed.bind(this)}
-         
-         />      
-         
-         {this.state.pendingUpdateAsset &&
-            <ActivityIndicator 
-            size="large"
-            color="blue"
-          />
-        }
-        {!this.state.pendingUpdateAsset &&
-            <View>
-            
-                <Text style={styles.label}>DNA Code<Text style={styles.required}> *</Text></Text>
-                <TextInput
-                style={styles.input}
-                defaultValue={this.state.asset.dnaCode}
-                onChangeText={(value) => this.setState({asset: {...this.state.asset, dnaCode: value}})}/>
+            <View>            
+                <Text style={styles.label}>DNA Code</Text>
+                <Text style={styles.input}>
+                    {this.state.asset.dnaCode}
+                </Text>
 
                 <Text style={styles.label}>Asset Code <Text style={styles.required}> *</Text></Text>
                 <TextInput
@@ -156,12 +121,12 @@ export default class UpdateAsset extends Component {
 
                 <TouchableHighlight
                     style={styles.button}
-                    onPress={this.handleUpdateClicked.bind(this)} >
+                    onPress={() => {this.state.handleUpdateClicked(this.state.asset)}} >
                     <Text style={styles.buttonText}>Submit</Text>
                     </TouchableHighlight>
             </View>
-            }
-         </ScrollView>
+           
+         
          
         )
     }

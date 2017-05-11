@@ -30,7 +30,7 @@ export default class NavBar extends Component {
             onPress={this.state.onLeftButtonPressed}/>}
         </View>
         <View style={{
-          flex: 4
+          flex: 3
         }}>
           <Text style={styles.heading}>{this.state.title}</Text>
         </View>
