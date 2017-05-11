@@ -54,7 +54,7 @@ const Api = {
   async getAssetsForUser(username, token) {
     
     try {
-      //Alert.alert("getAssets", "some text");
+      
       let response = await fetch('https://seekerdnasecure.co.za:3002/assets', {
         method: 'post',
         headers: {

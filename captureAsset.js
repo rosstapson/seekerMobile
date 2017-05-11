@@ -71,7 +71,7 @@ export default class CaptureAsset extends Component {
            
             let result = Api.addAssetForUser(asset, this.state.username, this.state.accessToken);
            
-            Alert.alert("Capture Successful", "ZOMG!");
+            Alert.alert("Success", "Asset captured.");
             this.setState({
                 pendingAddAsset: false,
                 dnaCode: '',

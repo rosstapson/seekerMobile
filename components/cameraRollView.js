@@ -93,7 +93,7 @@ var CameraRollView = React.createClass({
         },
       );
       if (result !== 'granted') {
-        Alert.alert('Access to pictures was denied.');
+        Alert.alert('Permissions Error', 'Access to pictures was denied.');
         return;
       }
     }

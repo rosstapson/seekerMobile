@@ -35,15 +35,7 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'flex-end'
   },
-  input: {
-    height: 50,
-    marginTop: 10,
-    alignSelf: 'auto',
-    padding: 3,
-    fontSize: 20,
-    borderWidth: 1,
-    borderColor: '#48bbec'
-  },
+  
   button : {
     height: 50,
     backgroundColor: '#48BBEC',
@@ -97,6 +89,15 @@ const styles = StyleSheet.create({
   },
   info: {
     flex: 1,
+  },
+  input: {
+    height: 50,
+    marginTop: 10,
+    alignSelf: 'auto',
+    padding: 3,
+    fontSize: 20,
+    borderWidth: 1,
+    borderColor: '#48bbec'
   },
   label: {
     paddingTop: 20,

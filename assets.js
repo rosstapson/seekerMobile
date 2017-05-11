@@ -100,7 +100,7 @@ class Assets extends Component {
               showUpdateAsset: false,
               showAssetList:true
             });            
-            Alert.alert("Oh well done.");
+            Alert.alert("Update Complete", "Asset " + asset.dnaCode + " updated.");
         }
         catch(error) {
             Alert.alert("Update Failed", error.message);

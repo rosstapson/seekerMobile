@@ -64,7 +64,7 @@ export default class ImageGallery extends Component {
                 if (!response.ok) {
                     Alert.alert("Unable to Upload Image", json.errorMessage);
                 } else {
-                    Alert.alert("Uploaded", "ZOMG");
+                    Alert.alert("Success", "Image uploaded.");
                 }
                 this.optimisticUpdateAsset(json.imageUrl);
                 this.showImages();
