@@ -25,8 +25,18 @@ class Home extends Component {
   componentWillMount() {
     this.getToken();
   }
-  userAccount() {
-    Alert.alert("ZOMG", "account btn pressed");
+  async userAccount() {
+    let token = this.state.accessToken;
+    let username = await AsyncStorage.getItem(constants.USERNAME);
+    let user = await Api.getUser(username, token);
+    this.props.navigator.push({
+      name: "account",
+      props: {
+        accessToken: this.state.accessToken,        
+        navigator: this.props.navigator,
+        user: user
+      }
+    })
   }
   logout() {
     this.deleteToken();    

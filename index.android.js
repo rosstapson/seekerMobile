@@ -9,6 +9,7 @@ import Root from './root';
 import Home from './home';
 import RegistrationComplete from './registrationComplete';
 import Assets from './assets';
+import Account from './account';
 import MyCamera from './components/myCamera';
 import PicPreview from './components/picPreview';
 import ImageGallery from './imageGallery';
@@ -54,7 +55,10 @@ export default class seekerMobile extends Component {
       //console.log("routing capture asset");
       return <CaptureAsset navigator={navigator} {...route.props} />
     }
-    
+    if(route.name == 'account') {
+      //console.log("routing capture asset");
+      return <Account navigator={navigator} {...route.props} />
+    }
   }
   render() {
     return (

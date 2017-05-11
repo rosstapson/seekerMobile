@@ -23,13 +23,14 @@ const styles = StyleSheet.create({
     alignSelf: 'stretch',
     flexDirection: 'row',
     justifyContent: 'space-between',
-    padding: 6
+    padding: 3
   },
   assetSmallTextBox: {
     flex: 1,
     alignSelf: 'stretch',    
     justifyContent: 'center',
-    alignItems: 'flex-start'
+    alignItems: 'flex-start',
+    padding: 3
   },
   assetSmallThumbnail: {
     flex: 1,
@@ -156,6 +157,13 @@ const styles = StyleSheet.create({
   url: {
     fontSize: 9,
     marginBottom: 14,
+  },
+  userDetailTextBox: {
+    flex: 2,
+    alignSelf: 'stretch',    
+    justifyContent: 'center',
+    alignItems: 'flex-start',
+    padding: 3
   },
   error: {
     color: 'red',

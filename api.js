@@ -5,7 +5,25 @@ import {
 import constants from './constants';
 
 const Api = {
-  
+  async getUser(username, token) {
+    let config = {
+            method: 'post',
+            headers: {
+                'content-type': 'application/json',
+                'x-access-token': token
+            },
+            body: JSON.stringify({username})
+        }
+
+    let response = await fetch("https://seekerdnasecure.co.za:3002/userdetails", config);
+    
+    if (response.status >= 200 && response.status < 300) {       
+        let user = await response.json();   
+        return user;        
+      } else {        
+        throw new Error(response.errorMessage);
+      }
+  },
   async updateAssetForUser(asset, username, token) {
     let config = {
             method: 'post',
