@@ -2,7 +2,9 @@ import React, { Component } from 'react';
 import {
     View,
     Image,
-    Text
+    Text,
+    TouchableOpacity,
+    Alert
 } from 'react-native';
 
 import styles from '../styles';
@@ -12,7 +14,8 @@ export default class ImageBox extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            imageUrl: this.props.imageUrl
+            imageUrl: this.props.imageUrl,
+            handleDeletePressed: this.props.handleDeletePressed
         }
     }
     render() {
@@ -22,9 +25,15 @@ export default class ImageBox extends Component {
                     source={{
                                 uri: constants.IMG_API + this.state.imageUrl
                             }}
-                    style={{width: 400, height: 400}}
+                    style={{width: 350, height: 350}}
                 >
-                <Text>Delete</Text>
+                <TouchableOpacity
+                        style={styles.captureButton}
+                        onPress={() => {                            
+                            this.state.handleDeletePressed(this.state.imageUrl)
+                        }}>
+                        <Image source={require('../icons/ic_delete.png')} />
+                    </TouchableOpacity>
                 </Image>
             </View>
         )

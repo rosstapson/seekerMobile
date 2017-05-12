@@ -29,7 +29,7 @@ export default class UpdateAsset extends Component {
         return (
             <View>            
                 <Text style={styles.label}>DNA Code</Text>
-                <Text style={styles.input}>
+                <Text style={styles.inputDisabled}>
                     {this.state.asset.dnaCode}
                 </Text>
 
