@@ -100,6 +100,14 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: '#48bbec'
   },
+  inputDisabled: {
+    height: 50,
+    marginTop: 10,
+    alignSelf: 'auto',
+    padding: 3,
+    fontSize: 20,
+    
+  },
   label: {
     paddingTop: 20,
     alignSelf: 'center',

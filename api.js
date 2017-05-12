@@ -24,6 +24,50 @@ const Api = {
         throw new Error(response.errorMessage);
       }
   },
+  async deleteImageForAsset(imageUrl, dnaCode, username, token) {
+    
+      
+    let config = {
+      method: 'post',
+      headers: {
+        'content-type': 'application/json',
+        'x-access-token': token
+      },
+      body: JSON.stringify({
+        username: username,
+        url: imageUrl,
+        dnaCode: dnaCode
+      })
+    }
+    let response = await fetch("https://seekerdnasecure.co.za:3002/deleteimage", config);
+    
+    if (response.status >= 200 && response.status < 300) {       
+        let message = await response.json();   
+        return message;        
+      } else {        
+        throw new Error(response.errorMessage);
+      }
+  },
+  async updateUser(user, token) {
+    let config = {
+            method: 'post',
+            headers: {
+                'content-type': 'application/json',
+                'x-access-token': token
+            },
+            body: JSON.stringify(user)
+        }
+
+        let response = await fetch("https://seekerdnasecure.co.za:3002/updateuser", config);
+        let json = await response.json();
+        if (response.status >= 200 && response.status <= 299) {          
+          return json.user;
+        }
+        else {
+          throw new Error(json.errorMessage);
+        }
+
+  },
   async updateAssetForUser(asset, username, token) {
     let config = {
             method: 'post',
@@ -42,7 +86,7 @@ const Api = {
           
         return json.assets;        
       } else {
-        throw new Error("status" + json.errorMessage);
+        throw new Error(json.errorMessage);
       }
 
   },

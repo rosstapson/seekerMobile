@@ -17,6 +17,7 @@ import ImageBox from './components/imageBox';
 import CameraRollView from './components/cameraRollView';
 import styles from './styles';
 import constants from './constants';
+import Api from './api';
 
 export default class ImageGallery extends Component {
     _cameraRollView;
@@ -31,7 +32,8 @@ export default class ImageGallery extends Component {
             showDeviceGallery: false,
             showPreview: false,
             previewPath: '',
-            bigImages: true
+            bigImages: true,
+            pendingDeleteImage: false
         }
     }
     async handleUploadImage() {
@@ -129,9 +131,40 @@ export default class ImageGallery extends Component {
       </TouchableOpacity>
     );
   }
+  async doDeleteImage(imageUrl) {
 
-    showPreview(path) {
-        alert(path);
+this.setState({pendingDeleteImage: true});
+      try {
+        let username = await AsyncStorage.getItem("username");
+        let accessToken = await AsyncStorage.getItem(constants.ACCESS_TOKEN);
+        Api.deleteImageForAsset(imageUrl, this.state.asset.dnaCode, username, accessToken);
+        let tempAsset = this.state.asset;
+        let tempUrls = this.state.asset.imageUrls.filter((value) => {
+            return value !== imageUrl;
+        });
+        tempAsset.imageUrls = tempUrls;
+        this.setState({asset: tempAsset});
+      }
+      catch(error) {
+          Alert.alert("Error", error.message);
+      }
+      // here do the 'optimistic update' - remove the image url from the array and let the setState rerender....
+      this.setState({pendingDeleteImage: false});
+  }
+
+  
+  handleDeletePressed(imageUrl) {     
+      Alert.alert(
+  'Confirm',
+  'Delete image?',
+  [    
+    {text: 'Cancel', onPress: () => {return}, style: 'cancel'},
+    {text: 'OK', onPress: () => {this.doDeleteImage(imageUrl)}},
+  ]
+)
+  }
+
+    showPreview(path) {        
         this.setState({showCamera: false, showImages: false, showDeviceGallery: false, showPreview: true, previewPath: path});
     }
     showImages() {
@@ -173,7 +206,11 @@ export default class ImageGallery extends Component {
                         .asset
                         .imageUrls
                         .map((imageUrls, i) => {
-                            return <ImageBox key={i} imageUrl={this.state.asset.imageUrls[i]}/>
+                            return <ImageBox 
+                            key={i} 
+                            imageUrl={this.state.asset.imageUrls[i]}
+                            handleDeletePressed={this.handleDeletePressed.bind(this)}
+                            />
                         })}
                 </ScrollView>
 }
