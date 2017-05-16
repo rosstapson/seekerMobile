@@ -7,7 +7,8 @@ import {
   Image,
   PermissionsAndroid,
   AsyncStorage,
-  Alert
+  Alert,
+  Platform
 } from 'react-native';
 
 import styles from './styles';
@@ -28,9 +29,9 @@ class AssetListItem extends Component {
 
     //console.log(constants.IMG_API + this.state.asset.imageUrls[0]);
   }
-  
+
   async checkPermissions() {
-    
+
       const currentPerms = await PermissionsAndroid.check(PermissionsAndroid.PERMISSIONS.WRITE_EXTERNAL_STORAGE);
       //console.log("current permissions: " + currentPerms);
       if (!currentPerms) {
@@ -53,7 +54,9 @@ class AssetListItem extends Component {
   }
   async onThumbnailPress(asset) {
     try {
-      await this.checkPermissions();      
+      if (Platform.OS === 'android') {
+        await this.checkPermissions();
+      }
     this
       .props
       .navigator
@@ -66,7 +69,7 @@ class AssetListItem extends Component {
       });
       }
     catch(err) {
-      Alert.alert("Permissions Error", err.message);      
+      Alert.alert("Permissions Error", err.message);
     }
   }
   render() {
