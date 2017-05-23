@@ -17,7 +17,7 @@ class Root extends Component {
     super(props);
     console.log("constructor")
     this.state = {
-      isLoggedIn: "true"
+      isLoggedIn: true
     }
   }
   componentDidMount() {
@@ -33,7 +33,7 @@ class Root extends Component {
     try {      
       let accessToken = await AsyncStorage.getItem(constants.ACCESS_TOKEN);
       if(!accessToken) {
-          this.setState({isLoggedIn: "false"})
+          this.setState({isLoggedIn: false})
       } else {
           this.verifyToken(accessToken)
       }
@@ -60,16 +60,16 @@ class Root extends Component {
         //console.log("succhess");
         this.navigate('home');
       } else {
-        this.setState({isLoggedIn: "false"});
+        this.setState({isLoggedIn: false});
           //Handle error
           
       }
     } catch(error) {
-        this.setState({isLoggedIn: "false"});
+        this.setState({isLoggedIn: false});
     }
   }
   render() {
-    if (this.state.isLoggedIn === "true") {
+    if (this.state.isLoggedIn === true) {
 return (
       <View style={styles.container}>
         <Image 
