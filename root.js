@@ -13,8 +13,14 @@ import styles from './styles';
 import constants from './constants'
 
 class Root extends Component {
-
-  componentWillMount() {
+  constructor(props) {
+    super(props);
+    console.log("constructor")
+    this.state = {
+      isLoggedIn: "true"
+    }
+  }
+  componentDidMount() {
     this.getToken();
   }
   navigate(routeName) {
@@ -27,7 +33,7 @@ class Root extends Component {
     try {      
       let accessToken = await AsyncStorage.getItem(constants.ACCESS_TOKEN);
       if(!accessToken) {
-          console.log("Token not set");
+          this.setState({isLoggedIn: "false"})
       } else {
           this.verifyToken(accessToken)
       }
@@ -54,16 +60,26 @@ class Root extends Component {
         //console.log("succhess");
         this.navigate('home');
       } else {
+        this.setState({isLoggedIn: "false"});
           //Handle error
-          //console.log("failure in a hebrew accent");
-          let error = await response.json();
-          throw error;
+          
       }
     } catch(error) {
-        console.log("Token expired.");
+        this.setState({isLoggedIn: "false"});
     }
   }
   render() {
+    if (this.state.isLoggedIn === "true") {
+return (
+      <View style={styles.container}>
+        <Image 
+        source={require('./img/logo.png')}
+        style={styles.logo}
+        />        
+      </View>
+    );
+  }
+  else {
     return (
       <View style={styles.container}>
         <Image 
@@ -80,6 +96,8 @@ class Root extends Component {
         </TouchableHighlight>
       </View>
     );
+  }
+    
   }
 }
 
