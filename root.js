@@ -15,7 +15,7 @@ import constants from './constants'
 class Root extends Component {
   constructor(props) {
     super(props);
-    console.log("constructor")
+    //console.log("constructor")
     this.state = {
       isLoggedIn: true
     }

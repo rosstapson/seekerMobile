@@ -68,16 +68,22 @@ export default class ImageGallery extends Component {
                 } else {
                     Alert.alert("Success", "Image uploaded.");
                 }
-                this.optimisticUpdateAsset(json.url);
+                this.optimisticUpdateAsset(json.url);                
                 //this.showImages();
             });
     };
-    optimisticUpdateAsset(image) {
+    optimisticUpdateAsset(url) {
+        let image = {
+            url: url,
+            description: '',
+            dateUploaded: 'Just now'
+        };
         let tempAsset = this.state.asset;
         let tempImages = tempAsset
             .images
             .slice();
             tempImages.push(image);
+            //console.log(tempImages);
         tempAsset.images = tempImages;
         this.setState({asset: tempAsset, showCamera: false, showImages: true, showDeviceGallery: false, showPreview: false});
         //showCamera: false, showImages: true, showDeviceGallery: false, showPreview: false
