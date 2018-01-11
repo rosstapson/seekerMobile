@@ -68,18 +68,19 @@ export default class ImageGallery extends Component {
                 } else {
                     Alert.alert("Success", "Image uploaded.");
                 }
-                this.optimisticUpdateAsset(json.imageUrl);
-                this.showImages();
+                this.optimisticUpdateAsset(json.url);
+                //this.showImages();
             });
     };
-    optimisticUpdateAsset(imageUrl) {
+    optimisticUpdateAsset(image) {
         let tempAsset = this.state.asset;
-        let tempUrls = tempAsset
-            .imageUrls
+        let tempImages = tempAsset
+            .images
             .slice();
-        tempUrls.push(imageUrl);
-        tempAsset.imageUrls = tempUrls;
-        this.setState({asset: tempAsset});
+            tempImages.push(image);
+        tempAsset.images = tempImages;
+        this.setState({asset: tempAsset, showCamera: false, showImages: true, showDeviceGallery: false, showPreview: false});
+        //showCamera: false, showImages: true, showDeviceGallery: false, showPreview: false
     }
 
     onLeftButtonPressed() {
@@ -100,22 +101,19 @@ export default class ImageGallery extends Component {
 
         }
     }
-     _onSwitchChange = (value) => {
-    
-    this._cameraRollView.rendererChanged();
-    this.setState({ bigImages: value });
-  }
+    _onSwitchChange = (value) => {    
+        this._cameraRollView.rendererChanged();
+        this.setState({ bigImages: value });
+    }
 
     _renderImage = (asset) => {
     const imageSize = this.state.bigImages ? 150 : 75;
-    const imageStyle = [styles.image, {width: imageSize, height: imageSize}];
-    
+    const imageStyle = [styles.image, {width: imageSize, height: imageSize}];    
     let myUri = asset.node.image.uri;
     // const {location} = asset.node;
     // const locationStr = location ? JSON.stringify(location) : 'Unknown location';
     return (
-      <TouchableOpacity key={asset} onPress={(asset) => { 
-          
+      <TouchableOpacity key={asset} onPress={(asset) => {          
           this.showPreview(myUri)}
         }>
         <View style={styles.row}>
@@ -132,23 +130,22 @@ export default class ImageGallery extends Component {
     );
   }
   async doDeleteImage(imageUrl) {
-
-this.setState({pendingDeleteImage: true});
-      try {
+    this.setState({pendingDeleteImage: true});
+    try {
         let username = await AsyncStorage.getItem("username");
         let accessToken = await AsyncStorage.getItem(constants.ACCESS_TOKEN);
         Api.deleteImageForAsset(imageUrl, this.state.asset.dnaCode, username, accessToken);
         let tempAsset = this.state.asset;
-        let tempUrls = this.state.asset.imageUrls.filter((value) => {
-            return value !== imageUrl;
+        let tempImages = this.state.asset.images.filter((image) => {
+            return image.url !== imageUrl;
         });
-        tempAsset.imageUrls = tempUrls;
+        tempAsset.images = tempImages;
         this.setState({asset: tempAsset});
-      }
-      catch(error) {
-          Alert.alert("Error", error.message);
-      }
-      // here do the 'optimistic update' - remove the image url from the array and let the setState rerender....
+    }
+    catch(error) {
+        Alert.alert("Error", error.message);
+    }
+      // here do the 'optimistic update' - remove the image  from the array and let the setState rerender....
       this.setState({pendingDeleteImage: false});
   }
 
@@ -204,11 +201,11 @@ this.setState({pendingDeleteImage: true});
                     {this
                         .state
                         .asset
-                        .imageUrls
-                        .map((imageUrls, i) => {
+                        .images
+                        .map((images, i) => {
                             return <ImageBox 
                             key={i} 
-                            imageUrl={this.state.asset.imageUrls[i]}
+                            image={this.state.asset.images[i]}
                             handleDeletePressed={this.handleDeletePressed.bind(this)}
                             />
                         })}
@@ -222,17 +219,15 @@ this.setState({pendingDeleteImage: true});
                     .showImages
                     .bind(this)}/>
 }
-                {this.state.showDeviceGallery && <View>
-                    
-             <CameraRollView
-                ref = {(ref) => { this._cameraRollView = ref; }}
-                batchSize = {20}               
-                renderImage = {this._renderImage}
-                showPreview={this.showPreview.bind(this)}
+                {this.state.showDeviceGallery && <View>                    
+                    <CameraRollView
+                        ref = {(ref) => { this._cameraRollView = ref; }}
+                        batchSize = {20}               
+                        renderImage = {this._renderImage}
+                        showPreview={this.showPreview.bind(this)}
 
-                />
-                </View>
-      
+                        />
+                </View>      
 }
                 {this.state.showPreview && <PicPreview
                     handleUploadImage={this

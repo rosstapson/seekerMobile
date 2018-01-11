@@ -22,12 +22,11 @@ class AssetListItem extends Component {
       asset: this.props.asset,
       onDetailPress: this.props.onDetailPress,
       // onCameraPress: this.props.onCameraPress,
-      imagesAreAvailable: this.props.asset.imageUrls[0],
+      imagesAreAvailable: this.props.asset.images[0],
       navigator: this.props.navigator,
       accessToken: this.props.accessToken
     }
 
-    //console.log(constants.IMG_API + this.state.asset.imageUrls[0]);
   }
 
   async checkPermissions() {
@@ -100,7 +99,7 @@ class AssetListItem extends Component {
           }}>
             <Image
               source={{
-              uri: constants.IMG_API + this.state.asset.imageUrls[0]
+              uri: constants.IMG_API + this.state.asset.images[0].url
             }}
               style={{
               width: 150,

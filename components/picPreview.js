@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {View, Image, TouchableOpacity, Text} from 'react-native';
+import {View, Image, TouchableOpacity, Text, TextInput} from 'react-native';
 
 import styles from '../styles';
 
@@ -16,14 +16,31 @@ export default class PicPreview extends Component {
     
     render() {
         return (
-            <View style={styles.container}>
-               
+            <View style={styles.container}>                        
                 <Image
                     source={{
                     uri: this.state.imagePath
                 }}
                     style={styles.cameraPreview}>
                     <View
+                    style={{
+                        flexDirection: 'row',
+                        justifyContent: 'space-between',
+                        alignItems: 'center',
+                    }}>                        
+                        <TextInput
+                            style={{
+                                height: 26,
+                                borderWidth: 0.5,
+                                borderColor: '#0f0f0f',
+                                flex: 1,
+                                fontSize: 13,
+                                padding: 4
+                            }}
+                            placeholder={"Description"}
+                        />
+                        </View>
+                        <View
                         style={{
                         flexDirection: 'row',
                         justifyContent: 'space-between',

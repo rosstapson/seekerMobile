@@ -6,6 +6,7 @@ import {
 } from 'react-native';
 
 import styles from '../styles';
+import countries from './countries';
 
 export default class UserDetail extends Component {
     constructor(props) {
@@ -70,7 +71,7 @@ export default class UserDetail extends Component {
                         <Text style={styles.labelRight}>Country</Text>
                     </View>
                     <View style={styles.userDetailTextBox}>
-                        <Text style={styles.labelSmall}>{this.state.user.address.country}</Text>
+                        <Text style={styles.labelSmall}>{this.state.user.address.country}</Text>                        
                     </View>
                 </View>
                 <View style={styles.assetDetailRow}>

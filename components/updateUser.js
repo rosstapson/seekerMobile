@@ -6,6 +6,7 @@ import {
     TouchableHighlight
 } from 'react-native';
 
+import SelectCountry from './selectCountry';
 import styles from '../styles';
 
 export default class UpdateUser extends Component {
@@ -19,9 +20,7 @@ export default class UpdateUser extends Component {
     }
     render() {
         return(
-            <View>
-
-                       
+            <View>                       
                 <Text style={styles.label}>Username</Text>
                 <Text style={styles.inputDisabled}>
                     {this.state.user.username}
@@ -65,11 +64,12 @@ export default class UpdateUser extends Component {
                 defaultValue={this.state.user.address.state}
                 onChangeText={(value) => this.setState({user: {...this.state.user, address: {...this.state.user.address, state: value}}})}/>
                 <Text style={styles.label}>Country</Text>
-                <TextInput
+                
+                <SelectCountry 
                 style={styles.input}
                 defaultValue={this.state.user.address.country}
-                onChangeText={(value) => this.setState({user: {...this.state.user, address: {...this.state.user.address, country: value}}})}/>
-
+                onChange={(value) => this.setState({user: {...this.state.user, address: {...this.state.user.address, country: value}}})}
+                /> 
                 <Text style={styles.label}>Phone</Text>
                 <TextInput
                 style={styles.input}
